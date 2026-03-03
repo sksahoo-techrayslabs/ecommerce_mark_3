@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_login</title>
+    <link rel="stylesheet" href="../../dist/styles/output.css">
+</head>
+<body class="bg-gray-100 min-h-screen ">
+    
+
+
+    <!-- importin navbar from component -->
+    <!-- <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50"></div> -->
+
+    <!-- background image-->
+    <div>
+        <img src="/frontend/assets/images/background image.jpg"
+            class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75">
+    </div>
+
+
+
+    <!-- login -->
+
+    <div class="flex items-center justify-center min-h-screen pt-24">
+
+        <div class="bg-yellow-100 p-8 rounded-2xl shadow-lg w-96">
+
+            <h2 class="text-2xl font-bold text-center mb-6">Admin Login</h2>
+
+            <form id="adminloginform" class="space-y-4">
+
+                <div>
+                    <label class="loginelement mb-1">Email</label>
+                    <input type="email" id="email" placeholder="input email" class="w-full px-4 py-2 border rounded-xl"
+                        required>
+                </div>
+
+                <div>
+                    <label class="loginelement mb-1">Password</label>
+                    <input type="password" id="password" placeholder="input password"
+                        class="w-full px-4 py-2 border rounded-xl" required>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-xl">
+                    Login
+                </button>
+
+            </form>
+
+            <!-- <p class="text-center text-sm mt-4">
+                Don't have an account?
+                <a href="signup_admin.html" class="text-blue-600">
+                    Sign Up
+                </a>
+            </p> -->
+
+            <!-- Back to Home -->
+            <p class="text-center text-sm mt-2">
+                <a href="/frontend/index.html" class="text-blue-600 hover:text-black hover:text-lg">
+                    Back to Home
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <script type="module" src="../../dist/scripts/admin_login.js"></script>
+</body>
+</html>
