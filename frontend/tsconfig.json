@@ -2,8 +2,8 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-     "rootDir": "./src/scripts", // input ts
-     "outDir": "./dist/scripts", //output js
+     "rootDir": "./src", // input ts ./src/scripts"
+     "outDir": "./dist", //output js "./dist/scripts"
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
