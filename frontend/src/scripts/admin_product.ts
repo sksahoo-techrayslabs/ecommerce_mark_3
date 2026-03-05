@@ -127,7 +127,7 @@
 
 // Define Product interface
 interface Product {
-    pid: string;
+    pid: number;
     category: string;
     name: string;
     price: number;
