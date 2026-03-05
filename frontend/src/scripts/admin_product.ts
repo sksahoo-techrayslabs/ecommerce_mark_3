@@ -58,25 +58,25 @@
 //             </td>
 //         `;
 
-        // Add event listeners for edit and delete buttons
-    //     const editButton = row.querySelector(".edit-btn") as HTMLButtonElement;
-    //     const deleteButton = row.querySelector(".delete-btn") as HTMLButtonElement;
+// Add event listeners for edit and delete buttons
+//     const editButton = row.querySelector(".edit-btn") as HTMLButtonElement;
+//     const deleteButton = row.querySelector(".delete-btn") as HTMLButtonElement;
 
-    //     editButton.addEventListener("click", () => editProduct(i));
-    //     deleteButton.addEventListener("click", () => deleteProduct(i));
+//     editButton.addEventListener("click", () => editProduct(i));
+//     deleteButton.addEventListener("click", () => deleteProduct(i));
 
-    //     table.appendChild(row);
-    // }
+//     table.appendChild(row);
+// }
 
-    // Save products to localStorage
-    // localStorage.setItem("products", JSON.stringify(products));
+// Save products to localStorage
+// localStorage.setItem("products", JSON.stringify(products));
 // }
 
 // Form submit event
 // form.addEventListener("submit", (e: Event) => {
 //     e.preventDefault();
 
-    // Get input values
+// Get input values
 //     const pid = (document.getElementById("pid") as HTMLInputElement).value;
 //     const category = (document.getElementById("category") as HTMLInputElement).value;
 //     const name = (document.getElementById("productname") as HTMLInputElement).value;
@@ -127,7 +127,7 @@
 
 // Define Product interface
 interface Product {
-    pid: number;
+    pid: string;
     category: string;
     name: string;
     price: number;
@@ -149,6 +149,7 @@ function showProducts(): void {
     for (let i = 0; i < products.length; i++) {
         const row = document.createElement("tr");
 
+        
         row.innerHTML = `
             <td class="p-3">${products[i].pid}</td>
             <td class="p-3">${products[i].category}</td>
