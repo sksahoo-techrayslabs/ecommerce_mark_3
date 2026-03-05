@@ -11,7 +11,7 @@ form.addEventListener("submit", function (e: Event) {
     const admin_password: string = "1234567890";
 
     if (email !== admin_email || password !== admin_password) {
-        alert("not authorized admin");
+        alert("Admin crededentials are wrong !!");
         return;
     }
 
@@ -31,5 +31,5 @@ form.addEventListener("submit", function (e: Event) {
 
     localStorage.setItem("currentUser", JSON.stringify(admin));
 
-    window.location.href = "#";
+    window.location.href = "admin_product.html";
 });

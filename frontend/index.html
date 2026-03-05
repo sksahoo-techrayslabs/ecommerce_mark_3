@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index</title>
     <link rel="stylesheet" href="./dist/styles/output.css">
 </head>
-<body>
-    
-<h1>this is index</h1>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen ">
+
+
+    <!-- this is for importing image -->
+
+    <div>
+        <img src="/frontend/assets/images/background image.jpg"
+            class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75">
+    </div>
 
 
 
 
 
 
+    <div class="bg-white p-10 rounded-2xl shadow-lg text-center w-xl ">
 
+        <h1 class="text-2xl font-bold mb-6">Welcome to E-Commerce-Management-System</h1>
+        <h3 class="text-2xl font-semibold mb-6"> Choose Your Role</h3>
 
+        <div class="space-y-4">
 
+            <!-- Admin Button -->
+            <a href="/frontend/src/page/admin_login.html"
+                class="block bg-gray-600 text-white py-3 rounded-xl hover:bg-gray-900 ">
+                Admin
+            </a>
 
+            <!-- customer Button -->
+            <a href="/frontend/customer/customer_html_files/login_customer.html"
+                class="block bg-gray-600 text-white py-3 rounded-xl hover:bg-gray-900 ">
+                Customer
+            </a>
+
+        </div>
+
+    </div>
 
     <script type="module" src="./dist/scripts/index.js"></script>
 </body>
+
 </html>
