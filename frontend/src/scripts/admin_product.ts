@@ -151,11 +151,11 @@ function showProducts(): void {
 
         
         row.innerHTML = `
-            <td class="p-3">${products[i].pid}</td>
-            <td class="p-3">${products[i].category}</td>
-            <td class="p-3">${products[i].name}</td>
-            <td class="p-3">₹${products[i].price}</td>
-            <td class="p-3">${products[i].stock}</td>
+            <td class="p-3">${products[i]!.pid}</td>
+            <td class="p-3">${products[i]!.category}</td>
+            <td class="p-3">${products[i]!.name}</td>
+            <td class="p-3">₹${products[i]!.price}</td>
+            <td class="p-3">${products[i]!.stock}</td>
             <td class="p-3">
                 <button class="px-3 py-1 bg-blue-500 text-white rounded edit-btn">Edit</button>
                 <button class="px-3 py-1 bg-red-500 text-white rounded delete-btn">Delete</button>
@@ -238,11 +238,11 @@ function editProduct(index: number): void {
 
     const p = products[index];
 
-    (document.getElementById("pid") as HTMLInputElement).value = p.pid;
-    (document.getElementById("category") as HTMLInputElement).value = p.category;
-    (document.getElementById("productname") as HTMLInputElement).value = p.name;
-    (document.getElementById("price") as HTMLInputElement).value = p.price.toString();
-    (document.getElementById("stock") as HTMLInputElement).value = p.stock.toString();
+    (document.getElementById("pid") as HTMLInputElement).value = p!.pid;
+    (document.getElementById("category") as HTMLInputElement).value = p!.category;
+    (document.getElementById("productname") as HTMLInputElement).value = p!.name;
+    (document.getElementById("price") as HTMLInputElement).value = p!.price.toString();
+    (document.getElementById("stock") as HTMLInputElement).value = p!.stock.toString();
 
     editIndex = index;
 }

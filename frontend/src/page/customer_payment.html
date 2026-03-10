@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer payment</title>
+    <link rel="stylesheet" href="../../dist/styles/output.css">
+</head>
+
+
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div id="customernavbar" class="w-full fixed top-0 left-0 z-50 "> </div>
+
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">
+            Payment
+        </h2>
+        <form id="paymentForm" class="space-y-4">
+            <div>
+                <label class="block mb-2 font-semibold">Select Payment Method</label>
+                <select id="paymentMethod" class="w-full border p-2 rounded">
+                    <option value="">Choose Method</option>
+                    <option value="COD">Cash on Delivery</option>
+                    <option value="UPI">UPI</option>
+                    <option value="CARD">Card</option>
+                </select>
+            </div>
+            <div id="paymentDetails">
+
+            </div>
+            <button type="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+
+                Pay Now
+
+            </button>
+        </form>
+    </div>
+    <script type="module" src="../../dist/scripts/customer_payment.js"></script>
+    <script type="module" src="../../dist/components/customer_navbar_loader.js"></script>
+
+</body>
+
+</html>

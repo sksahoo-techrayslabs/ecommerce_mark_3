@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer cart</title>
+    <link rel="stylesheet" href="../../dist/styles/output.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen pt-30">
+
+    <!-- importing admin nav bar through js -->
+    <div id="customernavbar" class="w-full fixed top-0 left-0 z-50 rounded-full"></div>
+
+
+    <!-- Background Image -->
+    <div>
+        <img src="/frontend/assets/images/background image.jpg"
+            class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75">
+    </div>
+
+
+
+
+    <div class="max-w-4xl mx-auto mt-8 bg-white p-6 rounded-xl shadow">
+        <h1 class="text-2xl font-bold text-center mt-8">
+            Cart
+        </h1>
+
+        <table class="min-w-full text-left">
+            <thead class="border-b">
+                <tr>
+                    <th class="p-3">Product</th>
+                    <th class="p-3">Price</th>
+                    <th class="p-3">Quantity</th>
+                    <th class="p-3">Total</th>
+                    <th class="p-3">Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="cartTable"></tbody>
+        </table>
+
+        <div class="flex justify-between items-center mt-6">
+            <h2 class="text-xl font-bold">
+                Grand Total: ₹<span id="grandTotal">0</span>
+            </h2>
+
+            <button id="placeOrderBtn" class="bg-green-600 text-white px-6 py-2 rounded">
+                Go to checkout
+            </button>
+        </div>
+
+    </div>
+
+
+
+ 
+
+    <script type="module" src="../../dist/scripts/customer_cart.js"></script>
+
+    <script type="module" src="../../dist/components/customer_navbar_loader.js"></script>
+</body>
+
+</html>
+
+>
