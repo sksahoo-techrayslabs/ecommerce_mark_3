@@ -1,10 +1,12 @@
 
+import { checkRole } from "../../dist/authorization/authorization.js";
 
+checkRole("customer");
 interface CartItem {
-pid: number;
-name: string;
-price: number;
-quantity: number;
+    pid: number;
+    name: string;
+    price: number;
+    quantity: number;
 }
 
 const checkoutItems = document.getElementById("checkoutItems") as HTMLElement | null;
@@ -15,96 +17,97 @@ let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
 function calculateTotal(): number {
 
-let total = 0;
+    let total = 0;
 
-cart.forEach(item => {
-total += item.price * item.quantity;
-});
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+    });
 
-return total;
+    return total;
 
 }
 
 function showCheckout(): void {
 
-if(!checkoutItems || !totalElement) return;
+    if (!checkoutItems || !totalElement) return;
 
-checkoutItems.innerHTML = "";
+    checkoutItems.innerHTML = "";
 
-if(cart.length === 0){
+    if (cart.length === 0) {
 
-checkoutItems.innerHTML = "<p>Cart is empty</p>";
-totalElement.textContent = "0";
+        checkoutItems.innerHTML = "<p>Cart is empty</p>";
+        totalElement.textContent = "0";
 
-return;
+        return;
 
-}
+    }
 
-cart.forEach(item => {
+    cart.forEach(item => {
 
-const itemTotal = item.price * item.quantity;
+        const itemTotal = item.price * item.quantity;
 
-checkoutItems.innerHTML += `
+        checkoutItems.innerHTML += `
 
 <div class="flex justify-between mb-2"><span>${item.name} × ${item.quantity}</span>
 
 <span>₹${itemTotal}</span>
 
 </div>
-`;});
+`;
+    });
 
-totalElement.textContent = calculateTotal().toString();
-
-}
-
-if(form){
-
-form.addEventListener("submit",(e:Event)=>{
-
-e.preventDefault();
-
-if(cart.length === 0){
-
-alert("Cart is empty!");
-return;
+    totalElement.textContent = calculateTotal().toString();
 
 }
 
-const nameInput = document.getElementById("fullname") as HTMLInputElement | null;
-const addressInput = document.getElementById("address") as HTMLInputElement | null;
-const phoneInput = document.getElementById("phone") as HTMLInputElement | null;
+if (form) {
 
-if(!nameInput || !addressInput || !phoneInput) return;
+    form.addEventListener("submit", (e: Event) => {
 
-const name = nameInput.value.trim();
-const address = addressInput.value.trim();
-const phone = phoneInput.value.trim();
+        e.preventDefault();
 
-if(!name || !address || !phone){
+        if (cart.length === 0) {
 
-alert("All fields are required");
-return;
+            alert("Cart is empty!");
+            return;
 
-}
+        }
 
-if(phone.length !=10){
+        const nameInput = document.getElementById("fullname") as HTMLInputElement | null;
+        const addressInput = document.getElementById("address") as HTMLInputElement | null;
+        const phoneInput = document.getElementById("phone") as HTMLInputElement | null;
 
-alert("Enter valid phone number");
-return;
+        if (!nameInput || !addressInput || !phoneInput) return;
 
-}
+        const name = nameInput.value.trim();
+        const address = addressInput.value.trim();
+        const phone = phoneInput.value.trim();
 
-let checkoutInfo = {
-name,
-address,
-phone
-};
+        if (!name || !address || !phone) {
 
-localStorage.setItem("checkoutInfo",JSON.stringify(checkoutInfo));
+            alert("All fields are required");
+            return;
 
-window.location.href = "customer_payment.html";
+        }
 
-});
+        if (phone.length != 10) {
+
+            alert("Enter valid phone number");
+            return;
+
+        }
+
+        let checkoutInfo = {
+            name,
+            address,
+            phone
+        };
+
+        localStorage.setItem("checkoutInfo", JSON.stringify(checkoutInfo));
+
+        window.location.href = "customer_payment.html";
+
+    });
 
 }
 

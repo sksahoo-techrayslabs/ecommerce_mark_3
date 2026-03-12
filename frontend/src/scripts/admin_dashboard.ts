@@ -1,4 +1,9 @@
-// Define interfaces
+
+
+import { checkRole } from "../../dist/authorization/authorization.js";
+
+checkRole("admin");
+
 interface Product {
     pid: string;
     category: string;

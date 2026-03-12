@@ -1,3 +1,5 @@
+
+
 fetch("/frontend/src/components/admin_navbar.html")
     .then((response: Response) => response.text())
     .then((data: string) => {

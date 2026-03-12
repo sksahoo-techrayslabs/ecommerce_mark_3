@@ -1,3 +1,4 @@
+
 fetch("/frontend/src/components/customer_navbar.html")
     .then((response: Response) => response.text())
     .then((data: string) => {
@@ -10,3 +11,6 @@ fetch("/frontend/src/components/customer_navbar.html")
     .catch((error: Error) => {
         console.error("Error loading admin navbar:", error);
     });
+
+
+ 

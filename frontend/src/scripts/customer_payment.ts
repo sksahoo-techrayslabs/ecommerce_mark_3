@@ -1,6 +1,8 @@
 
 
+import { checkRole } from "../../dist/authorization/authorization.js";   
 
+checkRole("customer");
 
 interface CartItem {
 pid: number;
