@@ -6,31 +6,40 @@ interface User {
     role: string;
 }
 
+import { hashPassword } from "../../dist/utils/password_hashing.js";
+
 // Get form
 const form = document.getElementById("customersignupform") as HTMLFormElement;
 
-form.addEventListener("submit", function (e: Event): void {
+form.addEventListener("submit", async function (e: Event): Promise<void> {
+
     e.preventDefault();
 
-    // Get input values
-    const name = (document.getElementById("name") as HTMLInputElement).value.trim();
-    const email = (document.getElementById("email") as HTMLInputElement).value.trim();
-    const password = (document.getElementById("password") as HTMLInputElement).value.trim();
-    const confirmPassword = (document.getElementById("confirmPassword") as HTMLInputElement).value.trim();
+    // Get input elements
+    const nameInput = document.getElementById("name") as HTMLInputElement;
+    const emailInput = document.getElementById("email") as HTMLInputElement;
+    const passwordInput = document.getElementById("password") as HTMLInputElement;
+    const confirmPasswordInput = document.getElementById("confirmPassword") as HTMLInputElement;
 
-    // 1️⃣ Required field validation
+    // Get values
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    const confirmPassword = confirmPasswordInput.value.trim();
+
+    //  Required field validation
     if (!name || !email || !password || !confirmPassword) {
         alert("All fields are required!");
         return;
     }
 
-    // 2️⃣ Name validation
+    //  Name validation
     if (name.length < 3) {
         alert("Name must be at least 3 characters long.");
         return;
     }
 
-    // 3️⃣ Email validation
+    // Email validation
     const emailPattern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(email)) {
@@ -38,7 +47,7 @@ form.addEventListener("submit", function (e: Event): void {
         return;
     }
 
-    // 4️⃣ Password validation
+    //  Password validation
     const passwordPattern: RegExp =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$/;
 
@@ -53,7 +62,7 @@ form.addEventListener("submit", function (e: Event): void {
         return;
     }
 
-    // 5️⃣ Password match check
+    // Password match check
     if (password !== confirmPassword) {
         alert("Passwords do not match!");
         return;
@@ -62,7 +71,7 @@ form.addEventListener("submit", function (e: Event): void {
     // Get users from localStorage
     let users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
 
-    // 6️⃣ Duplicate email check
+    // Duplicate email check
     const exists: boolean = users.some((user: User) => user.email === email);
 
     if (exists) {
@@ -70,11 +79,14 @@ form.addEventListener("submit", function (e: Event): void {
         return;
     }
 
-    // Create new user
+    //  password hashing
+    const hashedPassword = await hashPassword(password);
+
+    // Creating new user
     const newUser: User = {
         name: name,
         email: email,
-        password: password,
+        password: hashedPassword,
         role: "customer"
     };
 
