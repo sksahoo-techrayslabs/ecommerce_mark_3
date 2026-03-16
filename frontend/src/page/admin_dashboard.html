@@ -14,7 +14,8 @@
 
     <!-- importing admin nav bar through js -->
 
-    <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50 rounded-full">
+    <!-- <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50 rounded-full"> -->
+    <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50"></div>
 
     </div>
 
@@ -24,37 +25,38 @@
             class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75">
     </div>
 
-    <div class="flex justify-center pt-24">
+    <div class="flex justify-center items-center pt-28 px-4">
 
         <div class="w-full max-w-4xl bg-yellow-100 p-8 rounded-2xl shadow-lg">
 
-            <h1 class="text-2xl font-bold mb-8 text-center">
+            <h1 class="text-3xl font-bold mb-8 text-center text-indigo-700">
                 ADMIN DASHBOARD
             </h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 hover:scale-105 transition-transform duration-300">
 
-                <div class="bg-red-200 p-6 rounded-xl">
+                <div class="bg-red-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
                     <h2 class="text-lg font-semibold">Total products</h2>
                     <p id="totalproducts" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
-                <div class="bg-green-200 p-6 rounded-xl">
+                <div class="bg-green-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
                     <h2 class="text-lg font-semibold">Total orders</h2>
                     <p id="totalorders" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
-                <div class="bg-yellow-200 p-6 rounded-xl">
+                <div class="bg-yellow-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
                     <h2 class="text-lg font-semibold">Total users</h2>
                     <p id="totalusers" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
-                <div class="bg-blue-200 p-6 rounded-xl">
+                <div class="bg-blue-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
                     <h2 class="text-lg font-semibold">Total admins</h2>
                     <p id="totaladmins" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
-                <div class="bg-orange-200 p-6 rounded-xl">
+                <div class="bg-orange-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
                     <h2 class="text-lg font-semibold">Total customers</h2>
                     <p id="totalcustomers" class="text-3xl font-bold mt-2">0</p>
                 </div>
@@ -65,7 +67,7 @@
 
     </div>
 
-   
+
     <script type="module" src="../../dist/components/admin_navbar_loader.js"></script>
     <script type="module" src="../../dist/scripts/admin_dashboard.js"></script>
 </body>
