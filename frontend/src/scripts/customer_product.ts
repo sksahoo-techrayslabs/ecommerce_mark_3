@@ -11,7 +11,7 @@ interface Product {
 }
 
 interface CartItem {
-    pid: number;
+    pid: string;
     name: string;
     price: number;
     quantity: number;
