@@ -1,7 +1,7 @@
-
 import { checkRole } from "../../dist/authorization/authorization.js";
 
 checkRole("customer");
+
 interface CartItem {
     pid: string;
     name: string;
@@ -9,11 +9,26 @@ interface CartItem {
     quantity: number;
 }
 
+
+
+const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+if (!user || !user.id) {
+    alert("Please login first");
+    window.location.href = "customer_login.html";
+}
+
+const cartKey = "cart_" + user.id;
+
+
 const checkoutItems = document.getElementById("checkoutItems") as HTMLElement | null;
 const totalElement = document.getElementById("grandTotal") as HTMLElement | null;
 const form = document.getElementById("checkoutForm") as HTMLFormElement | null;
 
-let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+
+let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
+
+
 
 function calculateTotal(): number {
 
@@ -24,8 +39,9 @@ function calculateTotal(): number {
     });
 
     return total;
-
 }
+
+
 
 function showCheckout(): void {
 
@@ -39,7 +55,6 @@ function showCheckout(): void {
         totalElement.textContent = "0";
 
         return;
-
     }
 
     cart.forEach(item => {
@@ -47,17 +62,14 @@ function showCheckout(): void {
         const itemTotal = item.price * item.quantity;
 
         checkoutItems.innerHTML += `
-
-<div class="flex justify-between mb-2"><span>${item.name} × ${item.quantity}</span>
-
-<span>₹${itemTotal}</span>
-
-</div>
-`;
+        <div class="flex justify-between mb-2">
+            <span>${item.name} × ${item.quantity}</span>
+            <span>₹${itemTotal}</span>
+        </div>
+        `;
     });
 
     totalElement.textContent = calculateTotal().toString();
-
 }
 
 if (form) {
@@ -67,10 +79,8 @@ if (form) {
         e.preventDefault();
 
         if (cart.length === 0) {
-
             alert("Cart is empty!");
             return;
-
         }
 
         const nameInput = document.getElementById("fullname") as HTMLInputElement | null;
@@ -84,20 +94,16 @@ if (form) {
         const phone = phoneInput.value.trim();
 
         if (!name || !address || !phone) {
-
             alert("All fields are required");
             return;
-
         }
 
-        if (phone.length != 10) {
-
+        if (phone.length !== 10) {
             alert("Enter valid phone number");
             return;
-
         }
 
-        let checkoutInfo = {
+        const checkoutInfo = {
             name,
             address,
             phone
@@ -110,5 +116,7 @@ if (form) {
     });
 
 }
+
+
 
 showCheckout();

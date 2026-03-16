@@ -1,206 +1,212 @@
-
-
-import { checkRole } from "../../dist/authorization/authorization.js";   
+import { checkRole } from "../../dist/authorization/authorization.js";
 
 checkRole("customer");
 
 interface CartItem {
-pid: string;
-name: string;
-price: number;
-quantity: number;
+  pid: string;
+  name: string;
+  price: number;
+  quantity: number;
 }
 
 interface CheckoutInfo {
-name: string;
-address: string;
-phone: string;
+  name: string;
+  address: string;
+  phone: string;
 }
 
 interface Order {
-date: string;
-items: CartItem[];
-name: string;
-address: string;
-phone: string;
-paymentMethod: string;
-total: number;
-status: string;
+  date: string;
+  items: CartItem[];
+  name: string;
+  address: string;
+  phone: string;
+  paymentMethod: string;
+  total: number;
+  status: string;
 }
+
+
+const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+if (!user || !user.id) {
+  alert("Please login first");
+  window.location.href = "customer_login.html";
+}
+
+const cartKey = "cart_" + user.id;
+const orderKey = "orders_" + user.id;
+
 
 const paymentForm = document.getElementById("paymentForm") as HTMLFormElement | null;
 const paymentMethod = document.getElementById("paymentMethod") as HTMLSelectElement | null;
 const paymentDetails = document.getElementById("paymentDetails") as HTMLElement | null;
 
-let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+
+let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
 let checkoutInfo: CheckoutInfo = JSON.parse(localStorage.getItem("checkoutInfo") || "{}");
 
 function calculateTotal(): number {
 
-let total = 0;
+  let total = 0;
 
-cart.forEach(item => {
-total += item.price * item.quantity;
-});
+  cart.forEach(item => {
+    total += item.price * item.quantity;
+  });
 
-return total;
-
+  return total;
 }
+
 
 function renderPaymentFields(method: string): void {
 
-if (!paymentDetails) return;
+  if (!paymentDetails) return;
 
-paymentDetails.innerHTML = "";
+  paymentDetails.innerHTML = "";
 
-if (method === "UPI") {
+  if (method === "UPI") {
 
-paymentDetails.innerHTML = `
-  <div>
-    <label class="block mb-1">UPI ID</label>
-    <input
-    type="text"
-    id="upi"
-    placeholder="example@upi"
-    class="w-full border p-2 rounded">
-  </div>
-`;
+    paymentDetails.innerHTML = `
+        <div>
+            <label class="block mb-1">UPI ID</label>
+            <input
+            type="text"
+            id="upi"
+            placeholder="example@upi"
+            class="w-full border p-2 rounded">
+        </div>
+        `;
+  }
 
-}
+  if (method === "CARD") {
 
-if (method === "CARD") {
+    paymentDetails.innerHTML = `
+        <div class="space-y-2">
 
-paymentDetails.innerHTML = `
-  <div class="space-y-2">
+            <div>
+                <label class="block mb-1">Card Number</label>
+                <input
+                type="text"
+                id="card"
+                placeholder="1234 5678 9012 3456"
+                class="w-full border p-2 rounded">
+            </div>
 
-    <div>
-      <label class="block mb-1">Card Number</label>
-      <input
-      type="text"
-      id="card"
-      placeholder="1234 5678 9012 3456"
-      class="w-full border p-2 rounded">
-    </div>
+            <div>
+                <label class="block mb-1">CVV</label>
+                <input
+                type="password"
+                id="cvv"
+                placeholder="123"
+                class="w-full border p-2 rounded">
+            </div>
 
-    <div>
-      <label class="block mb-1">CVV</label>
-      <input
-      type="password"
-      id="cvv"
-      placeholder="123"
-      class="w-full border p-2 rounded">
-    </div>
-
-  </div>
-`;
-
-}
+        </div>
+        `;
+  }
 
 }
 
 if (paymentMethod) {
 
-paymentMethod.addEventListener("change", () => {
-
-renderPaymentFields(paymentMethod.value);
-
-});
+  paymentMethod.addEventListener("change", () => {
+    renderPaymentFields(paymentMethod.value);
+  });
 
 }
 
 function validatePayment(method: string): boolean {
 
-if (method === "UPI") {
+  if (method === "UPI") {
 
-const upiInput = document.getElementById("upi") as HTMLInputElement | null;
+    const upiInput = document.getElementById("upi") as HTMLInputElement | null;
 
-if (!upiInput || upiInput.value.trim() === "") {
-  alert("Enter UPI ID");
-  return false;
+    if (!upiInput || upiInput.value.trim() === "") {
+      alert("Enter UPI ID");
+      return false;
+    }
+  }
+
+  if (method === "CARD") {
+
+    const cardInput = document.getElementById("card") as HTMLInputElement | null;
+    const cvvInput = document.getElementById("cvv") as HTMLInputElement | null;
+
+    if (!cardInput || cardInput.value.trim().length < 12) {
+      alert("Enter valid card number");
+      return false;
+    }
+
+    if (!cvvInput || cvvInput.value.trim().length !== 3) {
+      alert("Enter valid CVV");
+      return false;
+    }
+
+  }
+
+  return true;
 }
 
-}
-
-if (method === "CARD") {
-
-const cardInput = document.getElementById("card") as HTMLInputElement | null;
-const cvvInput = document.getElementById("cvv") as HTMLInputElement | null;
-
-if (!cardInput || cardInput.value.trim().length < 12) {
-  alert("Enter valid card number");
-  return false;
-}
-
-if (!cvvInput || cvvInput.value.trim().length !== 3) {
-  alert("Enter valid CVV");
-  return false;
-}
-
-}
-
-return true;
-
-}
 
 function placeOrder(method: string): void {
 
-const orders: Order[] = JSON.parse(localStorage.getItem("orders") || "[]");
+  let orders: Order[] = JSON.parse(localStorage.getItem(orderKey) || "[]");
 
-const newOrder: Order = {
+  const newOrder: Order = {
 
-date: new Date().toLocaleString(),
+    date: new Date().toLocaleString(),
 
-items: cart,
+    items: cart,
 
-name: checkoutInfo.name,
-address: checkoutInfo.address,
-phone: checkoutInfo.phone,
+    name: checkoutInfo.name,
+    address: checkoutInfo.address,
+    phone: checkoutInfo.phone,
 
-paymentMethod: method,
+    paymentMethod: method,
 
-total: calculateTotal(),
+    total: calculateTotal(),
 
-status: method === "COD" ? "Pending" : "Paid"
+    status: method === "COD" ? "Pending" : "Paid"
+  };
 
-};
+  orders.push(newOrder);
 
-orders.push(newOrder);
+  localStorage.setItem(orderKey, JSON.stringify(orders));
 
-localStorage.setItem("orders", JSON.stringify(orders));
+  /* Clear only this user's cart */
+  localStorage.removeItem(cartKey);
+  localStorage.removeItem("checkoutInfo");
 
-localStorage.removeItem("cart");
-localStorage.removeItem("checkoutInfo");
+  alert("Payment successful! Order placed.");
 
-alert("Payment successful! Order placed.");
-
-window.location.href = "customer_order.html";
+  window.location.href = "customer_order.html";
 
 }
 
 if (paymentForm) {
 
-paymentForm.addEventListener("submit", (e: Event) => {
+  paymentForm.addEventListener("submit", (e: Event) => {
 
-e.preventDefault();
+    e.preventDefault();
 
-if (cart.length === 0) {
-  alert("Cart is empty");
-  return;
-}
+    if (cart.length === 0) {
+      alert("Cart is empty");
+      return;
+    }
 
-if (!paymentMethod || paymentMethod.value === "") {
-  alert("Select payment method");
-  return;
-}
+    if (!paymentMethod || paymentMethod.value === "") {
+      alert("Select payment method");
+      return;
+    }
 
-const method = paymentMethod.value;
+    const method = paymentMethod.value;
 
-if (!validatePayment(method)) {
-  return;
-}
+    if (!validatePayment(method)) {
+      return;
+    }
 
-placeOrder(method);
+    placeOrder(method);
 
-});
+  });
 
 }
