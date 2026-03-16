@@ -1,6 +1,4 @@
-
-import { checkRole } from "../authorization/authorization.js";
-
+import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
 interface CartItem {

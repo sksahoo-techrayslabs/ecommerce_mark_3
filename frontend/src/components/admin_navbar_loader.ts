@@ -7,13 +7,14 @@ fetch("/frontend/src/components/admin_navbar.html")
         if (!navbar) return;
 
         navbar.innerHTML = data;
-
+        
         const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
-        const adminTitle = document.querySelector("h1");
+        
+        const adminname = document.getElementById("admininfo");
 
-        if (adminTitle && user.name) {
-            adminTitle.textContent = `Admin Panel - ${user.name}`;
+        if (adminname && user.name) {
+            adminname.textContent = `Admin Panel - ${user.name}`;
         }
 
     })

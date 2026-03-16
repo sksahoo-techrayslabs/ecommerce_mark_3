@@ -1,4 +1,3 @@
-
 fetch("/frontend/src/components/customer_navbar.html")
     .then((response: Response) => response.text())
     .then((data: string) => {
@@ -9,14 +8,12 @@ fetch("/frontend/src/components/customer_navbar.html")
 
         navbar.innerHTML = data;
 
-        /*user details */
-
         const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
-        const userInfo = document.getElementById("userInfo");
+        const username = document.getElementById("userinfo");
 
-        if (userInfo && user.name) {
-            userInfo.textContent = `👤 ${user.name} (${user.id})`;
+        if (username && user.name) {
+            username.textContent = `👤 ${user.name} (${user.id})`;
         }
 
     })

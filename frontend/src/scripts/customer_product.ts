@@ -1,7 +1,6 @@
 
 
 import { checkRole } from "../../dist/authorization/authorization.js";
-
 checkRole("customer");
 
 interface Product {
@@ -98,7 +97,7 @@ function addToCart(index: number): void {
 
     let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
 
-    const existingItem = cart.find(item => item.pid === product.pid);
+    const existingItem = cart.find(item => item.pid === product!.pid);
 
     if (existingItem) {
         existingItem.quantity += quantity;
