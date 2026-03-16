@@ -1,5 +1,6 @@
 // User interface
 interface User {
+    id: string;
     name: string;
     email: string;
     password: string;
@@ -83,12 +84,15 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
     const hashedPassword = await hashPassword(password);
 
     // Creating new user
-    const newUser: User = {
-        name: name,
-        email: email,
-        password: hashedPassword,
-        role: "customer"
-    };
+  const newUser: User = {
+    id: "user_" + Date.now(),
+    name: name,
+    email: email,
+    password: hashedPassword,
+    role: "customer"
+};
+
+    
     users.push(newUser);
 
     // Save to localStorage
