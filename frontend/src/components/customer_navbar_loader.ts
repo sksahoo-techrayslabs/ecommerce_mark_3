@@ -13,9 +13,9 @@ fetch("/frontend/src/components/customer_navbar.html")
         const username = document.getElementById("userinfo");
 
         if (username && user.name) {
-            username.textContent = `👤 ${user.name} (${user.id})`;
+            username.textContent = `👤 ${user.name}`;
         }
-
+//  (${user.id})
     })
     .catch((error: Error) => {
         console.error("Error loading customer navbar:", error);

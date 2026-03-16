@@ -1,44 +1,51 @@
 <nav class="bg-[#11351E] shadow-md rounded-2xl mx-4 mt-4">
 
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between    items-center">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-        <!-- Left Section -->
-
-        <h1 class="text-xl font-bold text-[#F96167]">
+        <!-- Logo -->
+        <h1 class="text-lg font-bold text-[#F96167]">
             E-commerce Management System
         </h1>
 
-        <!-- right section -->
+        <!-- Navigation Links -->
+        <div class="flex items-center gap-6 text-sm font-medium text-[#CDCCE8]">
 
-        <div class="space-x-6 font-medium text-xl text-[#CDCCE8] hover:text-[#AEFFDE]">
+            <a href="../page/customer_products.html" class="hover:text-[#AEFFDE]">
+                Products
+            </a>
 
+            <a href="../page/customer_cart.html" class="hover:text-[#AEFFDE]">
+                Cart
+            </a>
 
-            <a href="../page/customer_products.html" class=" hover:text-blue-800">
-                Products</a>
+            <a href="../page/customer_checkout.html" class="hover:text-[#AEFFDE]">
+                Checkout
+            </a>
 
-            <a href="../page/customer_cart.html" class=" hover:text-blue-800">
-                Cart</a>
+            <a href="../page/customer_payment.html" class="hover:text-[#AEFFDE]">
+                Payment
+            </a>
 
-            <a href="../page/customer_checkout.html" class=" hover:text-blue-800">
-                Checkout</a>
+            <a href="../page/customer_order.html" class="hover:text-[#AEFFDE]">
+                Orders
+            </a>
 
-            <a href="../page/customer_payment.html" class=" hover:text-blue-800">
-                Payment</a>
+        </div>
 
-            <a href="../page/customer_order.html" class=" hover:text-blue-800">
-                Orders</a>
+        <!-- User Info + Logout -->
+        <div class="flex items-center gap-4">
 
-            <span id="userinfo" class="text-white font-semibold mr-4">
+            <span id="userinfo" class="text-white text-sm font-semibold">
             </span>
 
-            <button type="button" id="logoutbtn"
-                class="px-4 py-2 rounded-xl bg-[#DA4848] hover:bg-black hover:text-blue-800">
+            <button id="logoutbtn" class="px-4 py-1.5 text-sm rounded-lg bg-[#DA4848] hover:bg-red-700 text-white">
                 Logout
             </button>
+
         </div>
 
     </div>
 
-
 </nav>
+
 <script type="module" src="../../dist/authorization/authorization.js"></script>
