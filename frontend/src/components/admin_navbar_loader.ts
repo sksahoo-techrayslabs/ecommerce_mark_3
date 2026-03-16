@@ -14,9 +14,9 @@ fetch("/frontend/src/components/admin_navbar.html")
         const adminname = document.getElementById("admininfo");
 
         if (adminname && user.name) {
-            adminname.textContent = `Admin Panel - ${user.name}`;
+            adminname.textContent = `Hi!!__ADMIN__${user.name}`;
         }
-
+//  (${user.id})
     })
     .catch((error: Error) => {
         console.error("Error loading admin navbar:", error);

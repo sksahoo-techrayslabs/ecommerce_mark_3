@@ -13,7 +13,7 @@ fetch("/frontend/src/components/customer_navbar.html")
         const username = document.getElementById("userinfo");
 
         if (username && user.name) {
-            username.textContent = `👤 ${user.name}`;
+            username.textContent = `Hi!!__CUSTOMER__${user.name}`;
         }
 //  (${user.id})
     })
