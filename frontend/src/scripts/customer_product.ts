@@ -18,6 +18,8 @@ interface CartItem {
 }
 
 const container = document.getElementById("productContainer") as HTMLElement | null;
+const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+const cartKey = "cart_" + user.id;
 
 let products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
 
@@ -78,7 +80,8 @@ function addToCart(index: number): void {
 
     const product = products[index];
 
-    let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
 
     const item: CartItem = {
         pid: product!.pid,
@@ -89,7 +92,7 @@ function addToCart(index: number): void {
 
     cart.push(item);
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(cartKey, JSON.stringify(cart));
 
     alert("Added to cart!");
 }
