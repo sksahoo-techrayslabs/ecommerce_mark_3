@@ -89,7 +89,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
         password: hashedPassword,
         role: "customer"
     };
-
     users.push(newUser);
 
     // Save to localStorage
