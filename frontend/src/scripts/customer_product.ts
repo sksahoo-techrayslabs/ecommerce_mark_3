@@ -3,7 +3,7 @@ import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
 interface Product {
-    pid: number;
+    pid: string;
     name: string;
     category: string;
     price: number;

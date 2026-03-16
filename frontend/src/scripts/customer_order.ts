@@ -3,7 +3,7 @@ import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
 interface OrderItem {
-pid: number;
+pid: string;
 name: string;
 price: number;
 quantity: number;

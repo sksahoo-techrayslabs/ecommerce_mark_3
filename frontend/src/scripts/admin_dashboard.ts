@@ -42,4 +42,4 @@ let customers: User[] = users.filter((user: User) => user.role === "customer");
 
 (document.getElementById("totaladmins") as HTMLElement).textContent = admins.length.toString();
 
-(document.getElementById("totalcustomer") as HTMLElement).textContent = customers.length.toString();
+(document.getElementById("totalcustomers") as HTMLElement).textContent = customers.length.toString();
