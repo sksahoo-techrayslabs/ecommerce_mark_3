@@ -9,45 +9,46 @@
     <link rel="stylesheet" href="./dist/styles/output.css">
 </head>
 
-<!-- <body class="bg-gray-100 flex items-center justify-center min-h-screen" > -->
-
-<body class="min-h-screen  flex flex-col ">
+<body class="min-h-screen  flex flex-col bg-linear-to-b from-indigo-300 via-purple-300 to-pink-300 ">
     <!-- this is for importing image -->
 
-    <div>
+    <!-- <div>
         <img src="/frontend/assets/images/background image.jpg" alt="background image"
             class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75 blur-md">
-        
-            <div class="absolute inset-0 bg-linear-to-b from-indigo-900/40 via-transparent to-purple-900/40 -z-10"></div>
-    </div>
 
-    <nav class="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg w-full">
+        <div class="absolute inset-0 bg-linear-to-b from-indigo-900/40 via-transparent to-purple-900/40 -z-10"></div>
+    </div> -->
+    <!-- ---------------------------------------------------------------------------------------------------------- -->
+
+    <nav id="navigationbar"
+        class="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg w-full">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-xl font-bold tracking-wide">
                 E-Commerce System
             </h1>
 
             <div class="space-x-6">
-                <a href="/index.html" class="hover:text-yellow-300 transition-colors duration-300">Home</a>
+                
                 <a href="/frontend/src/page/admin_login.html"
                     class="hover:text-yellow-300 transition-colors duration-300">Admin</a>
                 <a href="/frontend/src/page/customer_registration.html"
                     class="hover:text-yellow-300 transition-colors duration-300">Customer</a>
+                <a href="#about" class="hover:text-yellow-300 transition-colors duration-300">About</a>
+                <a href="#footer" class="hover:text-yellow-300 transition-colors duration-300">Contact Us</a>    
             </div>
         </div>
     </nav>
 
-
-    <main class="grow flex items-center justify-center">
-        <div
-            class="bg-white/90 backdrop-blur-md p-10 rounded-2xl shadow-xl border border-purple-200 text-center max-w-xl mx-auto">
+    <!-- ------------------------------------------------------------------------------------------------------------------- -->
+    <main id="selectionbox" class="grow flex items-center justify-center py-52">
+        <div class="bg-white p-10 rounded-2xl shadow-xl border border-purple-200 text-center max-w-xl mx-auto">
 
             <h1
                 class="text-3xl font-extrabold mb-6 bg-clip-text text-transparent bg-linear-to-r from-indigo-500 to-pink-500">
                 Welcome to E-Commerce-Management-System
             </h1>
 
-            <h3 class="text-2xl font-semibold mb-6 text-indigo-700">
+            <h3 class="text-2xl font-semibold mb-6 text-black">
                 Choose Your Role
             </h3>
 
@@ -67,13 +68,84 @@
         </div>
     </main>
 
+    <!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
+    <section id="about" class="relative mx-auto max-w-7xl px-6">
 
-  
+        <!-- Section Title -->
+        <h2 class=" mb-20 text-center  text-9xl font-bold text-blue-800">
+            About E-Commerce Management System
+        </h2>
+
+
+        <div class="grid items-center gap-12 md:grid-cols-2 mb-32 text-center">
+
+            <!------------------------------- Right Text----------------------- -->
+            <div class="flex-row-reverse justify-items-start col-start-2 col-end-2">
+
+                <h2 class="mb-6 font-semibold text-black text-4xl underline">
+                    Ecommerce Order Management Website for your business
+                </h2>
+
+                <p class="mb-4 text-gray-800 text-2xl leading-relaxed">
+                    Our ecommerce order management website automates time
+                    consuming tasks, and speeds up your fulfillment process from
+                    the moment an order is placed, to the moment it's
+                    despatched from your warehouse.
+                </p>
+
+                <p class="mb-4 text-gray-800 text-2xl leading-relaxed">
+                    Our website gives access to admin to add products and modify
+                    accordingly to their needs. It is efficient to traditional methods
+                    of keeping record.
+                </p>
+
+                <p class="mb-4 text-gray-800 text-2xl leading-relaxed">
+                    Our website give access to customers to see all products, add to cart,
+                    after doing payment they can place orders.
+            </div>
+        </div>
+
+
+        <div class="grid items-center gap-12 md:grid-cols-2 ">
+            <!------------------------------------ Left Text ----------------------------->
+            <div>
+                <h3 class="mb-6 font-semibold text-black text-4xl text-center underline ">
+                    How our website have increased sales by 2x
+                </h3>
+
+                <p class="mb-4 text-gray-800 text-2xl leading-relaxed font-medium">
+                    1. Faster Product Discovery </p>
+                <p class="mb-4 text-gray-800 text-xl leading-relaxed ">
+                    Our system shows all products clearly with price, category, and stock.
+                    Customers don’t waste time
+                    searching. <br>
+
+                    Result : <br>
+                    => Less friction in buying <br>
+                    => Higher conversion rate
+
+                </p> <br>
+                <p class="mb-4 text-gray-800 text-2xl leading-relaxed font-medium">
+                    2. Streamlined Checkout Process
+                </p>
+
+                <p class="mb-4 text-gray-800 text-xl leading-relaxed ">
+                    A structured flow increases completed purchases. <br>
+                    Result : <br>
+
+                    => Reduced cart abandonment <br>    
+                    =>Faster purchase completion
+                </p>
+            </div>
+
+
+
+        </div>
 
     </section>
 
-
-    <div id="footer" class="mt-auto "></div>
+    <div id="footer" class="mt-auto ">
+    </div>
 
     <script type="module" src="./dist/scripts/index.js"></script>
     <script type="module" src="./dist/components/footer_loader.js"></script>
