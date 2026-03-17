@@ -6,19 +6,29 @@ interface User {
   role: string;
 }
 
+
 import { hashPassword } from "../../dist/utils/password_hashing.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  // this is for checking user is already logged in or on if yes then it will redirect it to customer product page
+  const existingUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+
+  if (existingUser && existingUser.role === "customer") {
+    window.location.href = "customer_products.html";
+  }
+
 
   const loginForm = document.getElementById("customerloginform") as HTMLFormElement | null;
   const emailInput = document.getElementById("email") as HTMLInputElement | null;
   const passwordInput = document.getElementById("password") as HTMLInputElement | null;
 
-  if (!loginForm || !emailInput || !passwordInput) return;
+  if (!loginForm || !emailInput || !passwordInput)
+    return;
 
 
 
-  loginForm.addEventListener("submit",async (e: Event) => {
+  loginForm.addEventListener("submit", async (e: Event) => {
     e.preventDefault();
 
     const email = emailInput.value.trim();
@@ -45,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
 
-   
+
 
     const customer = users.find((user: User) =>
       user.email === email &&
