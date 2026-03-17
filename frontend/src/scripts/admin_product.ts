@@ -8,6 +8,7 @@ interface Product {
     name: string;
     price: number;
     stock: number;
+    image:string;
 }
 
 // Get DOM elements
