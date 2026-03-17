@@ -10,6 +10,14 @@ import { hashPassword } from "../../dist/utils/password_hashing.js";
 
 const form = document.querySelector('form') as HTMLFormElement;
 
+  // this is for checking user is already logged in or on if yes then it will redirect it to customer product page
+const existingUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+
+if (existingUser && existingUser.role === "admin") {
+    window.location.href = "admin_product.html";
+}
+
+
 form.addEventListener("submit", async function (e: Event) {
     e.preventDefault();
 

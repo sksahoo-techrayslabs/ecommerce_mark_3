@@ -16,22 +16,28 @@ const table = document.getElementById("producttable") as HTMLTableElement;
 
 // Initialize products array and editIndex
 let products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
+// for searching logic
+const searchInput = document.getElementById("searchProduct") as HTMLInputElement | null;   
 let editIndex: number = -1;
 
+
+
+
+
 // Function to show products in the table
-function showProducts(): void {
+function showProducts(list: Product[] = products): void{
     table.innerHTML = "";
 
-    for (let i = 0; i < products.length; i++) {
+    for (let i = 0; i < list.length; i++) {
         const row = document.createElement("tr");
 
         
         row.innerHTML = `
-            <td class="p-3">${products[i]!.pid}</td>
-            <td class="p-3">${products[i]!.category}</td>
-            <td class="p-3">${products[i]!.name}</td>
-            <td class="p-3">₹${products[i]!.price}</td>
-            <td class="p-3">${products[i]!.stock}</td>
+            <td class="p-3">${list[i]!.pid}</td>
+            <td class="p-3">${list[i]!.category}</td>
+            <td class="p-3">${list[i]!.name}</td>
+            <td class="p-3">₹${list[i]!.price}</td>
+            <td class="p-3">${list[i]!.stock}</td>
             <td class="p-3">
                 <button class="px-3 py-1 bg-blue-500 text-white rounded edit-btn">Edit</button>
                 <button class="px-3 py-1 bg-red-500 text-white rounded delete-btn">Delete</button>
@@ -125,3 +131,20 @@ function editProduct(index: number): void {
 
 // Initial render
 showProducts();
+
+if (searchInput) {
+
+  searchInput.addEventListener("input", () => {
+
+    const query = searchInput.value.toLowerCase();
+
+    const filteredProducts = products.filter(product =>
+      product.name.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query)
+    );
+
+    showProducts(filteredProducts);
+
+  });
+
+}
