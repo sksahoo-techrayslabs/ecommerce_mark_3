@@ -1,5 +1,3 @@
-
-
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
@@ -18,7 +16,6 @@ interface CartItem {
     quantity: number;
 }
 
-
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
 if (!user || !user.id) {
@@ -28,11 +25,15 @@ if (!user || !user.id) {
 
 const cartKey = "cart_" + user.id;
 
-
-const container = document.getElementById("productContainer") as HTMLElement | null;
-
-
 let products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
+
+let container: HTMLElement | null = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    container = document.getElementById("productContainer");
+
+    showProducts();
 
 
 function showProducts(): void {
@@ -48,7 +49,7 @@ function showProducts(): void {
 
     products.forEach((product, index) => {
 
-        container.innerHTML += `
+        container!.innerHTML += `
         <div class="bg-white p-6 rounded-xl shadow">
 
             <h2 class="text-lg font-bold mb-2">
@@ -79,7 +80,7 @@ function showProducts(): void {
         `;
     });
 }
-
+});
 function addToCart(index: number): void {
 
     const qtyInput = document.getElementById("qty_" + index) as HTMLInputElement | null;
@@ -118,10 +119,5 @@ function addToCart(index: number): void {
     alert("Added to cart!");
 }
 
-/* -------- MAKE FUNCTION GLOBAL -------- */
-
+/* MAKE FUNCTION GLOBAL */
 (window as any).addToCart = addToCart;
-
-/* -------- INITIAL LOAD -------- */
-
-showProducts();
