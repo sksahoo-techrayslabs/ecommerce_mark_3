@@ -27,6 +27,7 @@ if (!user || !user.id) {
 const cartKey = "cart_" + user.id;
 
 let products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
+const searchInput = document.getElementById("searchProduct") as HTMLInputElement
 
 let container: HTMLElement | null = null;
 
@@ -35,9 +36,25 @@ document.addEventListener("DOMContentLoaded", () => {
     container = document.getElementById("productContainer");
 
     showProducts();
+    if (searchInput) {
+
+    searchInput.addEventListener("input", () => {
+
+        const query = searchInput.value.toLowerCase();
+
+        const filteredProducts = products.filter(product =>
+            product.name.toLowerCase().includes(query) ||
+            product.category.toLowerCase().includes(query)
+        );
+
+        showProducts(filteredProducts);
+
+    });
+
+}
 
 
-function showProducts(): void {
+function showProducts(list: Product[] = products): void {
 
     if (!container) return;
 
@@ -48,7 +65,7 @@ function showProducts(): void {
         return;
     }
 
-    products.forEach((product, index) => {
+    list.forEach((product, index) => {
 
         container!.innerHTML += `
         <div class="bg-white p-6 rounded-xl shadow">
