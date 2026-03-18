@@ -1,89 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- 2 -->
-
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin products</title>
+
+    <title>Admin Product Management</title>
+
     <link rel="stylesheet" href="../../dist/styles/output.css">
+
 </head>
 
-<body class="min-h-screen bg-linear-to-b from-indigo-300 via-purple-300 to-pink-300 relative pt-20">
 
-    <!-- importing admin nav bar through js -->
-    <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50 rounded-full"></div>
+<body class="min-h-screen bg-linear-to-b from-indigo-300 via-purple-300 to-pink-300 pt-20">
 
-
-    <!-- Background Image -->
-    <!-- <div>
-        <img src="/frontend/assets/images/background image.jpg"
-            class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75">
-    </div> -->
-
-    <div class="flex justify-center pt-24">
+    <!-- Admin Navbar -->
+    <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50"></div>
 
 
+    <div class="flex justify-center px-4 py-12">
 
-        <div class="w-full max-w-4xl bg-yellow-100 p-8 rounded-2xl shadow-lg">
+        <div class="w-full max-w-6xl bg-yellow-100 p-6 md:p-8 rounded-2xl shadow-lg">
 
-
-
-            <!-- heading manage products-->
-            <div class="flex justify-center items-center mb-6">
-                <h1 class="text-2xl font-bold">Manage Products</h1>
-
+            <!-- ------------------------------ -->
+            <!-- heading of the page -->
+            <div class="text-center mb-8">
+                <h1 class="text-2xl md:text-3xl font-bold">
+                    Manage Products
+                </h1>
             </div>
 
-            <!-- Table -->
+            <!-- ------------------------------------------------ -->
+            <!-- product from-->
+            <form id="productform" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6       ">
 
+                <input id="pid" type="text" placeholder="Product ID" required
+                    class="border px-3 py-2 rounded-xl w-full text-center">
 
-            <form id="productform" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <input id="category" type="text" placeholder="Category" required
+                    class="border px-3 py-2 rounded-xl w-full text-center">
 
-                <input id="pid" placeholder="ID" type="number" required class="border px-3 py-2 rounded-xl">
+                <input id="productname" type="text" placeholder="Product Name" required
+                    class="border px-3 py-2 rounded-xl w-full text-center">
 
-                <input id="category" placeholder="Category" type="text" required class="border px-3 py-2 rounded-xl">
+                <input id="price" type="number" placeholder="Price" required
+                    class="border px-3 py-2 rounded-xl w-full text-center">
 
-                <input id="productname" placeholder="Product Name" type="text" required
-                    class="border px-3 py-2 rounded-xl">
+                <input id="stock" type="number" placeholder="Stock" required
+                    class="border px-3 py-2 rounded-xl w-full text-center">
 
-                <input id="price" placeholder="Price" type="number" required class="border px-3 py-2 rounded-xl">
+                <input type="file" id="image" accept="image/*" class="border px-3 py-2 rounded-xl w-full">
 
-                <input id="stock" placeholder="Stock" type="number" required class="border px-3 py-2 rounded-xl">
-
-                <input type="file" id="image"  accept="image/*" class="border px-3 py-2 rounded-xl">
-
-                <button type="submit" class="bg-blue-600 text-white border rounded-xl px-3 py-2 ">
-                    Add
+                <button type="submit" class=" bg-blue-600 text-white rounded-xl px-4 py-2 hover:bg-black text-center">
+                    Add Product
                 </button>
 
             </form>
-            <!-- for searching  products or category -->
-            <div class="mb-4">
+
+            <!-- ----------------------------------------------------------------------------------------------- -->
+            <!-- search bar -->
+            <div class="mb-6 flex justify-center">
+
                 <input type="text" id="searchProduct" placeholder="Search product by name or category..."
-                    class="border p-2 rounded w-full">
+                    class="border p-3 rounded-xl w-lg text-center ">
+
             </div>
 
-            <table class="min-w-full text-left">
 
-                <thead class="border">
-                    <tr>
-                        <th class="p-3">ID</th>
-                        <th class="p-3">Category</th>
-                        <th class="p-3">Product Name</th>
-                        <th class="p-3">Price</th>
-                        <th class="p-3">Stock</th>
-                        <th class="p-3">Actions</th>
-                    </tr>
-                </thead>
+            <!-- TABLE WRAPPER (RESPONSIVE SCROLL) -->
+            <div class="overflow-x-auto">
 
+                <table class="min-w-full text-left border bg-white rounded-lg">
 
-                <tbody id="producttable" class="divide-y"></tbody>
+                    <thead class="bg-gray-200 text-sm md:text-base">
 
-            </table>
+                        <tr>
 
+                            <th class="p-3">ID</th>
 
+                            <th class="p-3">Image</th>
+
+                            <th class="p-3">Category</th>
+
+                            <th class="p-3">Product Name</th>
+
+                            <th class="p-3">Price</th>
+
+                            <th class="p-3">Stock</th>
+
+                            <th class="p-3">Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="producttable" class="divide-y text-sm md:text-base">
+                    </tbody>
+
+                </table>
+
+            </div>
 
 
         </div>
@@ -91,10 +108,11 @@
     </div>
 
 
-
-
+    <!-- Scripts -->
     <script type="module" src="../../dist/components/admin_navbar_loader.js"></script>
+
     <script type="module" src="../../dist/scripts/admin_product.js"></script>
+
 </body>
 
 </html>
