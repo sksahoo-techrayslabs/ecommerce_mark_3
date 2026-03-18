@@ -72,7 +72,7 @@ function showProducts(list: Product[] = products): void {
     list.forEach((product, index) => {
 
         container!.innerHTML += `
-        <div class="bg-white p-6 rounded-xl shadow">
+        <div class="bg-white p-6 rounded-xl shadow text-center item-center">
 
             <img src="${product.image}"
                  class="w-full h-40 object-cover rounded mb-3">
@@ -85,7 +85,7 @@ function showProducts(list: Product[] = products): void {
             <p>Price: ₹${product.price}</p>
             <p>Stock: ${product.stock}</p>
 
-            <div class="flex items-center mt-3 space-x-2">
+            <div class="flex items-center mt-3 space-x-2 justify-center">
                 <label>Qty:</label>
 
                 <input type="number"
@@ -102,12 +102,11 @@ function showProducts(list: Product[] = products): void {
             </button>
 
         </div>
-        `;
+        `
 
     });
 
 }
-
 
 function addToCart(index: number): void {
 
@@ -116,13 +115,13 @@ function addToCart(index: number): void {
     if (!qtyInput) return;
 
     const quantity = parseInt(qtyInput.value);
+    const product = products[index];
 
-    if (isNaN(quantity) || quantity < 1) {
+
+    if (isNaN(quantity) || quantity < 1 || quantity > product!.stock) {
         alert("Invalid quantity");
         return;
     }
-
-    const product = products[index];
 
     let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
 
@@ -148,7 +147,4 @@ function addToCart(index: number): void {
     alert("Added to cart!");
 
 }
-
-
-/* MAKE FUNCTION GLOBAL */
 (window as any).addToCart = addToCart;

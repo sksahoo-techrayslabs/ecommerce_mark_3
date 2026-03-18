@@ -181,11 +181,11 @@ function editProduct(index: number): void {
 
     const p = products[index];
 
-    (document.getElementById("pid") as HTMLInputElement).value = p.pid;
-    (document.getElementById("category") as HTMLInputElement).value = p.category;
-    (document.getElementById("productname") as HTMLInputElement).value = p.name;
-    (document.getElementById("price") as HTMLInputElement).value = p.price.toString();
-    (document.getElementById("stock") as HTMLInputElement).value = p.stock.toString();
+    (document.getElementById("pid") as HTMLInputElement).value = p!.pid;
+    (document.getElementById("category") as HTMLInputElement).value = p!.category;
+    (document.getElementById("productname") as HTMLInputElement).value = p!.name;
+    (document.getElementById("price") as HTMLInputElement).value = p!.price.toString();
+    (document.getElementById("stock") as HTMLInputElement).value = p!.stock.toString();
 
     editIndex = index;
 
