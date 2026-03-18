@@ -1,4 +1,3 @@
-
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
@@ -8,6 +7,7 @@ interface Product {
     category: string;
     price: number;
     stock: number;
+    image: string;
 }
 
 interface CartItem {
@@ -27,7 +27,8 @@ if (!user || !user.id) {
 const cartKey = "cart_" + user.id;
 
 let products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
-const searchInput = document.getElementById("searchProduct") as HTMLInputElement
+
+const searchInput = document.getElementById("searchProduct") as HTMLInputElement | null;
 
 let container: HTMLElement | null = null;
 
@@ -36,22 +37,25 @@ document.addEventListener("DOMContentLoaded", () => {
     container = document.getElementById("productContainer");
 
     showProducts();
+
     if (searchInput) {
 
-    searchInput.addEventListener("input", () => {
+        searchInput.addEventListener("input", () => {
 
-        const query = searchInput.value.toLowerCase();
+            const query = searchInput.value.toLowerCase();
 
-        const filteredProducts = products.filter(product =>
-            product.name.toLowerCase().includes(query) ||
-            product.category.toLowerCase().includes(query)
-        );
+            const filteredProducts = products.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.category.toLowerCase().includes(query)
+            );
 
-        showProducts(filteredProducts);
+            showProducts(filteredProducts);
 
-    });
+        });
 
-}
+    }
+
+});
 
 
 function showProducts(list: Product[] = products): void {
@@ -60,7 +64,7 @@ function showProducts(list: Product[] = products): void {
 
     container.innerHTML = "";
 
-    if (products.length === 0) {
+    if (list.length === 0) {
         container.innerHTML = "<p>No products available</p>";
         return;
     }
@@ -69,6 +73,9 @@ function showProducts(list: Product[] = products): void {
 
         container!.innerHTML += `
         <div class="bg-white p-6 rounded-xl shadow">
+
+            <img src="${product.image}"
+                 class="w-full h-40 object-cover rounded mb-3">
 
             <h2 class="text-lg font-bold mb-2">
                 ${product.name}
@@ -96,9 +103,12 @@ function showProducts(list: Product[] = products): void {
 
         </div>
         `;
+
     });
+
 }
-});
+
+
 function addToCart(index: number): void {
 
     const qtyInput = document.getElementById("qty_" + index) as HTMLInputElement | null;
@@ -130,12 +140,15 @@ function addToCart(index: number): void {
         };
 
         cart.push(item);
+
     }
 
     localStorage.setItem(cartKey, JSON.stringify(cart));
 
     alert("Added to cart!");
+
 }
+
 
 /* MAKE FUNCTION GLOBAL */
 (window as any).addToCart = addToCart;
