@@ -6,6 +6,7 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  image: string;
 }
 
 const cartTable = document.getElementById("cartTable") as HTMLElement | null;
@@ -40,7 +41,7 @@ function showCart(): void {
 
     cartTable.innerHTML = `
       <tr>
-        <td colspan="5" class="p-4 text-center">
+        <td colspan="6" class="p-4 text-center">
           Cart is empty
         </td>
       </tr>
@@ -59,6 +60,11 @@ function showCart(): void {
       <tr class="border-b">
 
         <td class="p-2">${item.name}</td>
+
+        <td>
+         <img src="${item.image}"
+          class="w-full h-40 object-cover rounded mb-3">
+        </td>
 
         <td class="p-2">₹${item.price}</td>
 
@@ -96,6 +102,13 @@ function showCart(): void {
 function updateQuantity(index: number, newQty: string): void {
 
   const quantity = parseInt(newQty);
+  const products = JSON.parse(localStorage.getItem("products") || "[]");
+  const product = products.find((p: any) => p.pid === cart[index]!.pid);
+
+  if (product && quantity > product.stock) {
+    alert("Exceeds available stock");
+    return;
+  }
 
   if (isNaN(quantity) || quantity < 1) {
     alert("Invalid quantity");

@@ -7,7 +7,8 @@ interface Product {
     category: string;
     price: number;
     stock: number;
-    image: string;
+    image:string;
+    
 }
 
 interface CartItem {
@@ -15,6 +16,8 @@ interface CartItem {
     name: string;
     price: number;
     quantity: number;
+    image:string;
+    
 }
 
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
@@ -135,7 +138,9 @@ function addToCart(index: number): void {
             pid: product!.pid,
             name: product!.name,
             price: product!.price,
-            quantity: quantity
+            quantity: quantity,
+            image: product!.image
+            
         };
 
         cart.push(item);

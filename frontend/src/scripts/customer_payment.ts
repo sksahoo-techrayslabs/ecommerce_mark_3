@@ -25,6 +25,15 @@ interface Order {
   status: string;
 }
 
+interface Product {
+  pid: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  image: string;
+}
+
 
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
@@ -44,6 +53,7 @@ const paymentDetails = document.getElementById("paymentDetails") as HTMLElement 
 
 let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
 let checkoutInfo: CheckoutInfo = JSON.parse(localStorage.getItem("checkoutInfo") || "{}");
+let products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
 
 function calculateTotal(): number {
 
@@ -170,7 +180,24 @@ function placeOrder(method: string): void {
 
   orders.push(newOrder);
 
-  localStorage.setItem(orderKey, JSON.stringify(orders));
+  localStorage.setItem(orderKey, JSON.stringify(orders)); 
+
+
+/* reduce stock after successful payment */
+
+cart.forEach(item => {
+
+  const product = products.find(p => p.pid === item.pid);
+
+  if (product) {
+    product.stock -= item.quantity;
+  }
+
+});
+
+/* save updated stock */
+localStorage.setItem("products", JSON.stringify(products));
+
 
   /* Clear only this user's cart */
   localStorage.removeItem(cartKey);
