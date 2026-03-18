@@ -1,75 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- 3 -->
-
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin dashboard</title>
+
+    <title>Admin Dashboard</title>
+
     <link rel="stylesheet" href="../../dist/styles/output.css">
+
 </head>
 
-<body class="min-h-screen bg-linear-to-b from-indigo-300 via-purple-300 to-pink-300  pt-20">
 
-    <!-- importing admin nav bar through js -->
+<body class="min-h-screen bg-linear-to-b from-indigo-300 via-purple-300 to-pink-300">
 
-    <!-- <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50 rounded-full"> -->
-    <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50"></div>
 
-    </div>
+    <!-- MAIN CONTAINER -->
+    <div class="flex min-h-screen">
 
-    <!-- Background Image -->
-    <!-- <div>
-        <img src="/frontend/assets/images/background image.jpg"
-            class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75">
-    </div> -->
 
-    <div class="flex justify-center items-center pt-28 px-4">
+        <!-- SIDEBAR -->
+        <div class="w-64 bg-white/20 backdrop-blur-lg shadow-xl p-6 hidden md:block">
 
-        <div class="w-full max-w-4xl p-8 rounded-2xl shadow-2xl bg-linear-to-b from-indigo-300 via-purple-300 to-pink-300">
+            <h2 class="text-2xl font-bold text-white mb-8">
+                Admin Panel
+            </h2>
 
-            <h1 class="text-3xl font-bold mb-8 text-center text-indigo-700">
-                ADMIN DASHBOARD
-            </h1>
+            <nav class="space-y-4 text-white font-semibold">
 
-            <div
-                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 hover:scale-105 transition-transform duration-300">
+                <a href="admin_dashboard.html" class="block hover:text-yellow-300">
+                    Dashboard
+                </a>
 
-                <div class="bg-red-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
-                    <h2 class="text-lg font-semibold">Total products</h2>
-                    <p id="totalproducts" class="text-3xl font-bold mt-2">0</p>
-                </div>
+                <a href="admin_product.html" class="block hover:text-yellow-300">
+                    Products
+                </a>
 
-                <div class="bg-green-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
-                    <h2 class="text-lg font-semibold">Total orders</h2>
-                    <p id="totalorders" class="text-3xl font-bold mt-2">0</p>
-                </div>
+                <a href="#" class="block hover:text-yellow-300">
+                    Orders
+                </a>
 
-                <div class="bg-yellow-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
-                    <h2 class="text-lg font-semibold">Total users</h2>
-                    <p id="totalusers" class="text-3xl font-bold mt-2">0</p>
-                </div>
+                <a href="#" class="block hover:text-yellow-300">
+                    Customers
+                </a>
 
-                <div class="bg-blue-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
-                    <h2 class="text-lg font-semibold">Total admins</h2>
-                    <p id="totaladmins" class="text-3xl font-bold mt-2">0</p>
-                </div>
+            </nav>
 
-                <div class="bg-orange-200 p-6 rounded-xl hover:scale-125 transition-transform duration-300">
-                    <h2 class="text-lg font-semibold">Total customers</h2>
-                    <p id="totalcustomers" class="text-3xl font-bold mt-2">0</p>
+        </div>
+
+
+        <!-- MAIN DASHBOARD -->
+        <div class="flex-1 p-6 md:p-10">
+
+
+            <!-- HEADER -->
+            <div class="flex justify-between items-center mb-10">
+
+                <h1 class="text-3xl font-bold text-white">
+                    Dashboard Overview
+                </h1>
+
+                <div class="text-white font-semibold">
+                    Admin
                 </div>
 
             </div>
+
+
+            <!-- STAT CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+
+                <div class="bg-white/30 backdrop-blur-lg rounded-xl p-6 shadow-lg">
+
+                    <p class="text-gray-700">Products</p>
+
+                    <p id="totalproducts" class="text-3xl font-bold mt-2">
+                        0
+                    </p>
+
+                </div>
+
+
+                <div class="bg-white/30 backdrop-blur-lg rounded-xl p-6 shadow-lg">
+
+                    <p class="text-gray-700">Orders</p>
+
+                    <p id="totalorders" class="text-3xl font-bold mt-2">
+                        0
+                    </p>
+
+                </div>
+
+
+                <div class="bg-white/30 backdrop-blur-lg rounded-xl p-6 shadow-lg">
+
+                    <p class="text-gray-700">Customers</p>
+
+                    <p id="totalcustomers" class="text-3xl font-bold mt-2">
+                        0
+                    </p>
+
+                </div>
+
+
+                <div class="bg-white/30 backdrop-blur-lg rounded-xl p-6 shadow-lg">
+
+                    <p class="text-gray-700">Revenue</p>
+
+                    <p id="totalrevenue" class="text-3xl font-bold mt-2">
+                        ₹0
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RECENT ORDERS -->
+            <div class="mt-12 bg-white/30 backdrop-blur-lg rounded-xl shadow-lg p-6">
+
+                <h2 class="text-xl font-bold mb-6">
+                    Recent Orders
+                </h2>
+
+
+                <div class="overflow-x-auto">
+
+                    <table class="min-w-full text-left">
+
+                        <thead class="border-b">
+
+                            <tr>
+
+                                <th class="p-3">Customer</th>
+
+                                <th class="p-3">Items</th>
+
+                                <th class="p-3">Total</th>
+
+                                <th class="p-3">Payment</th>
+
+                                <th class="p-3">Date</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="recentOrders"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
 
         </div>
 
     </div>
 
 
-    <script type="module" src="../../dist/components/admin_navbar_loader.js"></script>
     <script type="module" src="../../dist/scripts/admin_dashboard.js"></script>
+
 </body>
 
 </html>
