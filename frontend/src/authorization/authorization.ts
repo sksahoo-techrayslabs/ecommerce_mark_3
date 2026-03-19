@@ -19,13 +19,14 @@ export function checkRole(requiredRole: string): void {
     const user = getCurrentUser();
 
     if (!user) {
-        // alert("Please login first");
         Swal.fire({
         icon:"error",
         title:"Please login first!!",
        
-       })
+       }).then(()=> {
         redirectToLogin();
+       });
+       
         return;
     }
 
@@ -34,9 +35,10 @@ export function checkRole(requiredRole: string): void {
         icon:"error",
         title:"Access denied",
        
-       })
-        // alert("Access denied");
-        redirectToLogin();
+       }).then(()=> {
+        redirectToLogin()
+       });
+        
     }
 }
 
@@ -46,9 +48,10 @@ export function logout(): void {
         icon:"error",
         title:"Logged out successfully",
        
-       })
-    // alert("Logged out successfully");
-    redirectToLogin();
+       }).then(()=> {
+        redirectToLogin();
+       });
+
 }
 
 document.addEventListener("click", (event) => {

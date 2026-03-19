@@ -1,6 +1,6 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
-
+declare const Swal:any;
 interface CartItem {
   pid: string;
   name: string;

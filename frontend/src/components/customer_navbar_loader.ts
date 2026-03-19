@@ -14,23 +14,24 @@ fetch("/frontend/src/components/customer_navbar.html")
         const userInfo = document.getElementById("userinfo");
 
         if (userInfo && user.name) {
-            userInfo.textContent = `👤 ${user.name}`;
+            userInfo.textContent = `👤 ${user.name}`;//  (${user.id}
         }
-//  (${user.id}
 
-        const logoutBtn = document.getElementById("logoutbtn") as HTMLButtonElement | null;
 
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", () => {
+        // const logoutBtn = document.getElementById("logoutbtn") as HTMLButtonElement | null;
 
-                localStorage.removeItem("currentUser");
+        // if (logoutBtn) {
+        //     logoutBtn.addEventListener("click", () => {
 
-                alert("Logged out successfully");
+        //         localStorage.removeItem("currentUser");
 
-                window.location.href = "/frontend/index.html";
+        //         // alert("Logged out successfully");
+                
 
-            });
-        }
+        //         // window.location.href = "/frontend/index.html";
+
+        //     });
+        // }
 
     })
     .catch((error: Error) => {

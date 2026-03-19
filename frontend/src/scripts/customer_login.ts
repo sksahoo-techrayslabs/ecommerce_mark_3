@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(customer){
       Swal.fire({
         icon:"success",
-        title:"successgul login",
+        title:"valid customer",
         
        })
 
@@ -100,8 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     localStorage.setItem("currentUser", JSON.stringify(customer));
+       Swal.fire({
+        icon:"success",
+        title:"successgul login",
+       
+       }).then(()=> {
+        window.location.href = "customer_products.html";
+       });
+       
 
-    window.location.href = "customer_products.html";
+    // window.location.href = "customer_products.html";
 
   });
 

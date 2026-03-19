@@ -139,7 +139,9 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
             icon: "success",
             title: "Customer account created successfully!",
 
-        })
+        }).then(()=> {
+         window.location.href = "customer_login.html";
+       });
 
     // Redirect to login page
     window.location.href = "customer_login.html";

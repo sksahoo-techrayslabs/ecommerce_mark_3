@@ -53,6 +53,13 @@ form.addEventListener("submit", async function (e: Event) {
     };
 
     localStorage.setItem("currentUser", JSON.stringify(admin));
+     Swal.fire({
+        icon:"success",
+        title:"successful login",
+       
+       }).then(()=> {
+        window.location.href = "admin_product.html";
+       });
 
-    window.location.href = "admin_product.html";
+    // window.location.href = "admin_product.html";
 });
