@@ -4,6 +4,7 @@ interface User {
     email: string;
     role: string;
 }
+declare const Swal:any;
 
 function getCurrentUser(): User | null {
     const storedUser = localStorage.getItem("currentUser");
@@ -18,20 +19,35 @@ export function checkRole(requiredRole: string): void {
     const user = getCurrentUser();
 
     if (!user) {
-        alert("Please login first");
+        // alert("Please login first");
+        Swal.fire({
+        icon:"error",
+        title:"Please login first!!",
+       
+       })
         redirectToLogin();
         return;
     }
 
     if (user.role !== requiredRole) {
-        alert("Access denied");
+        Swal.fire({
+        icon:"error",
+        title:"Access denied",
+       
+       })
+        // alert("Access denied");
         redirectToLogin();
     }
 }
 
 export function logout(): void {
     localStorage.removeItem("currentUser");
-    alert("Logged out successfully");
+    Swal.fire({
+        icon:"error",
+        title:"Logged out successfully",
+       
+       })
+    // alert("Logged out successfully");
     redirectToLogin();
 }
 

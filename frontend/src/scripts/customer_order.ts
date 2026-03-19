@@ -1,5 +1,6 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
+declare const Swal: any;
 
 interface OrderItem {
     pid: string;
@@ -21,7 +22,12 @@ interface Order {
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
 if (!user || !user.id) {
-    alert("Please login first");
+    Swal.fire({
+        icon:"error",
+        title:"Please login first!!",
+       
+       })
+    // alert("Please login first");
     window.location.href = "customer_login.html";
 }
 

@@ -38,8 +38,13 @@ interface Product {
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
 if (!user || !user.id) {
-  alert("Please login first");
-  window.location.href = "customer_login.html";
+    Swal.fire({
+        icon:"error",
+        title:"Please login first!!",
+       
+       })
+    // alert("Please login first");
+    window.location.href = "customer_login.html";
 }
 
 const cartKey = "cart_" + user.id;

@@ -1,6 +1,7 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
+declare const Swal:any;
 interface Product {
     pid: string;
     name: string;
@@ -23,7 +24,12 @@ interface CartItem {
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
 if (!user || !user.id) {
-    alert("Please login first");
+    Swal.fire({
+        icon:"error",
+        title:"Please login first!!",
+       
+       })
+    // alert("Please login first");
     window.location.href = "customer_login.html";
 }
 
@@ -122,7 +128,12 @@ function addToCart(index: number): void {
 
 
     if (isNaN(quantity) || quantity < 1 || quantity > product!.stock) {
-        alert("Invalid quantity");
+         Swal.fire({
+        icon:"error",
+        title:"Invalid quantity",
+       
+       })
+        // alert("Invalid quantity");
         return;
     }
 
@@ -149,7 +160,12 @@ function addToCart(index: number): void {
 
     localStorage.setItem(cartKey, JSON.stringify(cart));
 
-    alert("Added to cart!");
+    // alert("Added to cart!");
+    Swal.fire({
+        icon:"success",
+        title:"Added to cart!",
+        
+       })
 
 }
 (window as any).addToCart = addToCart;

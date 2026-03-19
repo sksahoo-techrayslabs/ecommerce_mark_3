@@ -1,7 +1,7 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
-
 checkRole("customer");
 
+declare const Swal: any;
 interface CartItem {
     pid: string;
     name: string;
@@ -14,8 +14,17 @@ interface CartItem {
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
 if (!user || !user.id) {
-    alert("Please login first");
-    window.location.href = "customer_login.html";
+    // alert("Please login first");
+    // window.location.href = "customer_login.html";
+    Swal.fire({
+        icon: "error",
+        title: "Please login first",
+
+    }).then(() => {
+
+        window.location.href = "customer_login.html";
+
+    })
 }
 
 const cartKey = "cart_" + user.id;
@@ -79,7 +88,12 @@ if (form) {
         e.preventDefault();
 
         if (cart.length === 0) {
-            alert("Cart is empty!");
+            // alert("Cart is empty!");
+            Swal.fire({
+                icon: "error",
+                title: "Cart is empty!",
+
+            })
             return;
         }
 
@@ -94,12 +108,21 @@ if (form) {
         const phone = phoneInput.value.trim();
 
         if (!name || !address || !phone) {
-            alert("All fields are required");
+            // alert("All fields are required");
+             Swal.fire({
+                icon: "error",
+                title: "All fields are required",
+            })
             return;
         }
 
         if (phone.length !== 10) {
-            alert("Enter valid phone number");
+            // alert("Enter valid phone number");
+            Swal.fire({
+                icon: "error",
+                title: "Enter valid phone number",
+            })
+
             return;
         }
 

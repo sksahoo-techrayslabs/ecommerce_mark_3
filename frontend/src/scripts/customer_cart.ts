@@ -1,6 +1,7 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
+declare const Swal:any;
 interface CartItem {
   pid: string;
   name: string;
@@ -18,8 +19,16 @@ const placeOrderBtn = document.getElementById("placeOrderBtn") as HTMLButtonElem
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
 if (!user || !user.id) {
-  alert("Please login first");
-  window.location.href = "customer_login.html";
+  Swal.fire({
+        icon:"error",
+        title:"Please login first",
+       
+       }).then(() => {
+
+         window.location.href = "customer_login.html";
+
+       })
+  // alert("Please login first");
 }
 
 const cartKey = "cart_" + user.id;
@@ -106,12 +115,22 @@ function updateQuantity(index: number, newQty: string): void {
   const product = products.find((p: any) => p.pid === cart[index]!.pid);
 
   if (product && quantity > product.stock) {
-    alert("Exceeds available stock");
+     Swal.fire({
+        icon:"error",
+        title:"Exceeds available stock"
+       
+       })
+    // alert("Exceeds available stock");
     return;
   }
 
   if (isNaN(quantity) || quantity < 1) {
-    alert("Invalid quantity");
+    // alert("Invalid quantity");
+    Swal.fire({
+        icon:"error",
+        title:"Invalid quantity"
+       
+       })
     return;
   }
 
@@ -136,7 +155,12 @@ if (placeOrderBtn) {
   placeOrderBtn.addEventListener("click", () => {
 
     if (cart.length === 0) {
-      alert("Cart is empty!");
+      Swal.fire({
+        icon:"error",
+        title:"Cart is empty!"
+       
+       })
+      // alert("Cart is empty!");
       return;
     }
 

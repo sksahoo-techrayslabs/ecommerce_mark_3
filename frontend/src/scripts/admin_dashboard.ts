@@ -2,117 +2,81 @@ import { checkRole } from "../../dist/authorization/authorization.js";
 
 checkRole("admin");
 
+/* INTERFACES */
 interface Product {
     pid: string;
-    category: string;
     name: string;
     price: number;
     stock: number;
 }
 
-interface OrderItem {
-    pid: string;
-    name: string;
-    price: number;
-    quantity: number;
-}
-
 interface Order {
     id: string;
     userId: string;
-    items: OrderItem[];
     total: number;
-    paymentMethod: string;
-    date: string;
 }
 
 interface User {
-    id: string;
+    id: string | number;
     name: string;
     role: string;
 }
 
-/* LOAD DATA */
 
-let products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
-let users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
+/* MAIN */
+document.addEventListener("DOMContentLoaded", () => {
 
-/* GET ALL ORDERS FROM ALL USERS */
+    /* LOAD DATA */
+    const products: Product[] = JSON.parse(localStorage.getItem("products") || "[]");
+    let users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
 
-let allOrders: Order[] = [];
+    /* ensure admin exists (for count) */
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
 
-users.forEach(user => {
+    if (currentUser && currentUser.role === "admin") {
+        const exists = users.find(u => String(u.id) === String(currentUser.id));
 
-    const userOrders: Order[] =
-        JSON.parse(localStorage.getItem("orders_" + user.id) || "[]");
+        if (!exists) {
+            users.push(currentUser);
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+    }
 
-    allOrders = allOrders.concat(userOrders);
+    /* GET ALL ORDERS */
+    let totalOrders = 0;
+    let totalRevenue = 0;
 
-});
+    users.forEach(user => {
 
-/* FILTER USERS */
+        const userOrders: Order[] =
+            JSON.parse(localStorage.getItem("orders_" + user.id) || "[]");
 
-let admins: User[] = users.filter(user => user.role === "admin");
-let customers: User[] = users.filter(user => user.role === "customer");
+        totalOrders += userOrders.length;
 
-/* DASHBOARD TOTALS */
-
-(document.getElementById("totalproducts") as HTMLElement).textContent =
-    products.length.toString();
-
-(document.getElementById("totalorders") as HTMLElement).textContent =
-    allOrders.length.toString();
-
-(document.getElementById("totalusers") as HTMLElement).textContent =
-    users.length.toString();
-
-(document.getElementById("totaladmins") as HTMLElement).textContent =
-    admins.length.toString();
-
-(document.getElementById("totalcustomers") as HTMLElement).textContent =
-    customers.length.toString();
-
-/* TOTAL REVENUE */
-
-let revenue = 0;
-
-allOrders.forEach(order => {
-    revenue += order.total;
-});
-
-(document.getElementById("totalrevenue") as HTMLElement).textContent =
-    "₹" + revenue;
-
-
-/* LOW STOCK PRODUCTS */
-
-const lowStock = products.filter(p => p.stock <= 5);
-
-if (lowStock.length > 0) {
-    console.log("Low stock products:", lowStock);
-}
-
-
-/* RECENT ORDERS */
-
-const recentOrdersTable = document.getElementById("recentOrders");
-
-if (recentOrdersTable) {
-
-    const recentOrders = allOrders.slice(-5).reverse();
-
-    recentOrders.forEach(order => {
-
-        recentOrdersTable.innerHTML += `
-        <tr>
-            <td class="p-3">${order.userId}</td>
-            <td class="p-3">${order.items.length} items</td>
-            <td class="p-3">₹${order.total}</td>
-            <td class="p-3">${order.paymentMethod}</td>
-            <td class="p-3">${order.date}</td>
-        </tr>
-        `;
+        userOrders.forEach(order => {
+            totalRevenue += order.total;
+        });
 
     });
 
+    /* FILTER USERS */
+    const admins = users.filter(u => u.role === "admin");
+    const customers = users.filter(u => u.role === "customer");
+
+
+    /* UPDATE CARDS */
+    setText("totalproducts", products.length);
+    setText("totalorders", totalOrders);
+    setText("totalusers", users.length);
+    setText("totaladmins", admins.length);
+    setText("totalcustomers", customers.length);
+    setText("totalrevenue", "₹" + totalRevenue);
+
+});
+
+
+/* HELPER FUNCTION */
+function setText(id: string, value: any) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value.toString();
 }

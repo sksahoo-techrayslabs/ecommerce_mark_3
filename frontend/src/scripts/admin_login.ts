@@ -1,3 +1,4 @@
+declare const Swal:any;
 interface Admin {
     id: number;
     name: string;
@@ -33,7 +34,12 @@ form.addEventListener("submit", async function (e: Event) {
 
 
     if (email !== admin_email || encoded_password !== hashedPassword) {
-        alert("Admin crededentials are wrong !!");
+       Swal.fire({
+        icon:"error",
+        title:"admin credentials are wrong !!",
+        text:"Enter correct data"
+       })
+    //    ("Admin crededentials are wrong !!");
         return;
     }
 

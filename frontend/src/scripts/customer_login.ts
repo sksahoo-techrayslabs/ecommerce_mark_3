@@ -1,3 +1,4 @@
+declare const Swal:any;
 interface User {
   id: string;
   name: string;
@@ -36,19 +37,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Validation
     if (!email || !password) {
-      alert("Email and Password are required");
+       Swal.fire({
+        icon:"error",
+        title:"Email and Password are required!!",
+        
+       })
+      // alert("Email and Password are required");
       return;
     }
 
     const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
     if (!emailPattern.test(email)) {
-      alert("Please enter a valid email");
+      Swal.fire({
+        icon:"error",
+        title:"Please enter a valid email!!",
+        
+       })
+      // alert("Please enter a valid email");
       return;
     }
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters");
+      Swal.fire({
+        icon:"error",
+        title:"Password must be at least 6 characters!!",
+        
+       })
+      // alert("Password must be at least 6 characters");
       return;
     }
     const hashedPassword = await hashPassword(password);
@@ -64,8 +80,21 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     if (!customer) {
-      alert("Invalid customer email or password");
+       Swal.fire({
+        icon:"error",
+        title:"Invalid customer email or password!!",
+        
+       })
+      // alert("Invalid customer email or password");
       return;
+    }
+    if(customer){
+      Swal.fire({
+        icon:"success",
+        title:"successgul login",
+        
+       })
+
     }
 
 
