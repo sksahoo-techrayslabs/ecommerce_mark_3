@@ -1,4 +1,4 @@
-declare const Swal:any;
+declare const Swal: any;
 interface Admin {
     id: number;
     name: string;
@@ -11,7 +11,8 @@ import { hashPassword } from "../../dist/utils/password_hashing.js";
 
 const form = document.querySelector('form') as HTMLFormElement;
 
-  // this is for checking user is already logged in or on if yes then it will redirect it to customer product page
+
+// this is for checking user is already logged in or on if yes then it will redirect it to customer product page
 const existingUser = JSON.parse(localStorage.getItem("currentUser") || "null");
 
 if (existingUser && existingUser.role === "admin") {
@@ -34,12 +35,11 @@ form.addEventListener("submit", async function (e: Event) {
 
 
     if (email !== admin_email || encoded_password !== hashedPassword) {
-       Swal.fire({
-        icon:"error",
-        title:"admin credentials are wrong !!",
-        text:"Enter correct data"
-       })
-    //    ("Admin crededentials are wrong !!");
+        Swal.fire({
+            icon: "error",
+            title: "admin credentials are wrong !!",
+            text: "Enter correct data"
+        })
         return;
     }
 
@@ -52,14 +52,13 @@ form.addEventListener("submit", async function (e: Event) {
         role: "admin"
     };
 
-    localStorage.setItem("currentUser", JSON.stringify(admin));
-     Swal.fire({
-        icon:"success",
-        title:"successful login",
-       
-       }).then(()=> {
-        window.location.href = "admin_product.html";
-       });
+    localStorage.setItem("currentUser", JSON.stringify(admin));   
+    
+    Swal.fire({
+        icon: "success",
+        title: "successful login",
 
-    // window.location.href = "admin_product.html";
+    }).then(() => {
+        window.location.href = "admin_product.html";
+    });
 });

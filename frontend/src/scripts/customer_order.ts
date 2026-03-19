@@ -27,7 +27,6 @@ if (!user || !user.id) {
         title:"Please login first!!",
        
        })
-    // alert("Please login first");
     window.location.href = "customer_login.html";
 }
 

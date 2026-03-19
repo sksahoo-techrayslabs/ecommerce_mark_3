@@ -1,4 +1,4 @@
-declare const Swal:any;
+declare const Swal: any;
 interface User {
   id: string;
   name: string;
@@ -37,12 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Validation
     if (!email || !password) {
-       Swal.fire({
-        icon:"error",
-        title:"Email and Password are required!!",
-        
-       })
-      // alert("Email and Password are required");
+      Swal.fire({
+        icon: "error",
+        title: "Email and Password are required!!",
+      })
       return;
     }
 
@@ -50,28 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!emailPattern.test(email)) {
       Swal.fire({
-        icon:"error",
-        title:"Please enter a valid email!!",
-        
-       })
-      // alert("Please enter a valid email");
+        icon: "error",
+        title: "Please enter a valid email!!",
+      })
       return;
     }
 
     if (password.length < 6) {
       Swal.fire({
-        icon:"error",
-        title:"Password must be at least 6 characters!!",
-        
-       })
-      // alert("Password must be at least 6 characters");
+        icon: "error",
+        title: "Password must be at least 6 characters!!",
+      })
       return;
     }
     const hashedPassword = await hashPassword(password);
 
     const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
-
-
 
     const customer = users.find((user: User) =>
       user.email === email &&
@@ -80,37 +72,28 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     if (!customer) {
-       Swal.fire({
-        icon:"error",
-        title:"Invalid customer email or password!!",
-        
-       })
-      // alert("Invalid customer email or password");
+      Swal.fire({
+        icon: "error",
+        title: "Invalid customer email or password!!",
+      })
       return;
     }
-    if(customer){
+    if (customer) {
       Swal.fire({
-        icon:"success",
-        title:"valid customer",
-        
-       })
+        icon: "success",
+        title: "valid customer",
 
+      })
     }
 
-
-
     localStorage.setItem("currentUser", JSON.stringify(customer));
-       Swal.fire({
-        icon:"success",
-        title:"successgul login",
-       
-       }).then(()=> {
-        window.location.href = "customer_products.html";
-       });
-       
 
-    // window.location.href = "customer_products.html";
+    Swal.fire({
+      icon: "success",
+      title: "successgul login",
 
+    }).then(() => {
+      window.location.href = "customer_products.html";
+    });
   });
-
 });

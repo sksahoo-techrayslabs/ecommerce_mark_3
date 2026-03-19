@@ -1,6 +1,8 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("admin");
 
+declare const Swal:any;
+
 interface Product {
     pid: string;
     category: string;
@@ -108,7 +110,10 @@ form.addEventListener("submit", async (e: Event) => {
     }
 
     if (!pid || !category || !name || !priceValue || !stockValue) {
-        alert("All fields are required!");
+        Swal.fire({
+        icon:"error",
+        title:"All fields are required!",
+       })
         return;
     }
 
@@ -116,18 +121,24 @@ form.addEventListener("submit", async (e: Event) => {
     const stock = parseInt(stockValue);
 
     if (isNaN(price) || price < 0) {
-        alert("Price must be positive");
+        Swal.fire({
+        icon:"error",
+        title:"Price must be positive",
+       })
         return;
     }
 
     if (isNaN(stock) || stock < 0) {
-        alert("Stock must be positive");
+        Swal.fire({
+        icon:"error",
+        title:"Stock must be positive",
+       })
         return;
     }
 
     const action = editIndex === -1 ? "add" : "update";
 
-    if (!confirm(`Are you sure you want to ${action} this product?`)) {
+    if (!confirm(`Are you sure you want to ${action} this product?`)) { // this is alert
         return;
     }
 

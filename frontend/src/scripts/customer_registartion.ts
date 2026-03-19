@@ -36,7 +36,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
             title: "All fields are required",
             text: "Enter all data"
         })
-        // alert("All fields are required!");
         return;
     }
 
@@ -47,7 +46,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
             title: "Name must be at least 3 characters long.",
 
         })
-        // alert("Name must be at least 3 characters long.");
         return;
     }
 
@@ -60,7 +58,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
             title: "Please enter a valid email address.",
 
         })
-        // alert("Please enter a valid email address.");
         return;
     }
 
@@ -79,13 +76,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
                 "- Minimum 6 characters"
 
         })
-        // alert(
-        //     "Password must contain:\n" +
-        //     "- At least 1 uppercase letter\n" +
-        //     "- At least 1 lowercase letter\n" +
-        //     "- At least 1 special character\n" +
-        //     "- Minimum 6 characters"
-        // );
         return;
     }
 
@@ -96,7 +86,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
             title: "Passwords do not match!",
 
         })
-        // alert("Passwords do not match!");
         return;
     }
 
@@ -112,7 +101,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
             title: "Email already registered!",
 
         })
-        // alert("Email already registered!");
         return;
     }
 
@@ -134,7 +122,6 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
     // Save to localStorage
     localStorage.setItem("users", JSON.stringify(users));
 
-    // alert("Customer account created successfully!");
     Swal.fire({
             icon: "success",
             title: "Customer account created successfully!",

@@ -1,5 +1,4 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
-
 checkRole("admin");
 
 /* INTERFACES */

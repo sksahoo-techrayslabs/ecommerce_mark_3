@@ -28,7 +28,6 @@ if (!user || !user.id) {
          window.location.href = "customer_login.html";
 
        })
-  // alert("Please login first");
 }
 
 const cartKey = "cart_" + user.id;
@@ -120,12 +119,10 @@ function updateQuantity(index: number, newQty: string): void {
         title:"Exceeds available stock"
        
        })
-    // alert("Exceeds available stock");
     return;
   }
 
   if (isNaN(quantity) || quantity < 1) {
-    // alert("Invalid quantity");
     Swal.fire({
         icon:"error",
         title:"Invalid quantity"
@@ -160,7 +157,7 @@ if (placeOrderBtn) {
         title:"Cart is empty!"
        
        })
-      // alert("Cart is empty!");
+ 
       return;
     }
 

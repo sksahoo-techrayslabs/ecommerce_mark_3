@@ -14,8 +14,6 @@ interface CartItem {
 const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
 if (!user || !user.id) {
-    // alert("Please login first");
-    // window.location.href = "customer_login.html";
     Swal.fire({
         icon: "error",
         title: "Please login first",
@@ -88,7 +86,7 @@ if (form) {
         e.preventDefault();
 
         if (cart.length === 0) {
-            // alert("Cart is empty!");
+        
             Swal.fire({
                 icon: "error",
                 title: "Cart is empty!",
@@ -108,7 +106,6 @@ if (form) {
         const phone = phoneInput.value.trim();
 
         if (!name || !address || !phone) {
-            // alert("All fields are required");
              Swal.fire({
                 icon: "error",
                 title: "All fields are required",
@@ -117,7 +114,6 @@ if (form) {
         }
 
         if (phone.length !== 10) {
-            // alert("Enter valid phone number");
             Swal.fire({
                 icon: "error",
                 title: "Enter valid phone number",

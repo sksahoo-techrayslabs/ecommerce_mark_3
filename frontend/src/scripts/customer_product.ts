@@ -28,9 +28,10 @@ if (!user || !user.id) {
         icon:"error",
         title:"Please login first!!",
        
+       }).then(() => {
+
+         window.location.href = "customer_login.html";
        })
-    // alert("Please login first");
-    window.location.href = "customer_login.html";
 }
 
 const cartKey = "cart_" + user.id;
@@ -84,7 +85,7 @@ function showProducts(list: Product[] = products): void {
         <div class="bg-white p-6 rounded-xl shadow text-center item-center">
 
             <img src="${product.image}"
-                 class="w-full h-40 object-cover rounded mb-3">
+                 class="w-full h-40 object-contain rounded mb-3">
 
             <h2 class="text-lg font-bold mb-2">
                 ${product.name}
@@ -133,7 +134,6 @@ function addToCart(index: number): void {
         title:"Invalid quantity",
        
        })
-        // alert("Invalid quantity");
         return;
     }
 
@@ -160,7 +160,7 @@ function addToCart(index: number): void {
 
     localStorage.setItem(cartKey, JSON.stringify(cart));
 
-    // alert("Added to cart!");
+
     Swal.fire({
         icon:"success",
         title:"Added to cart!",
