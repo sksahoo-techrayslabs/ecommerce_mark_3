@@ -1,182 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Admin Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../../dist/styles/output.css">
+
 </head>
 
-<body class="min-h-screen bg-linear-to-b from-indigo-300 via-purple-300 to-pink-300">
-    <!-- admin navbar  -->
+<body class="min-h-screen bg-gradient-to-b from-indigo-300 via-purple-300 to-pink-300">
+
+    <!-- Navbar -->
     <div id="adminnavbar" class="w-full fixed top-0 left-0 z-50"></div>
 
-    <!-- contains full page  -->
     <div class="flex min-h-screen pt-20">
 
-
-        <!-- sidebar-->
-        <div class="w-64  shadow-xl p-6 ">
-
-            <!-- <h2 class="text-2xl font-bold text-white mb-8">
-                Admin Panel
-            </h2> -->
-
-            <nav class="space-y-4 text-black font-semibold pt-28 pl-8">
-
+        <!-- Sidebar -->
+        <div class="w-64 shadow-xl p-6">
+            <nav class="space-y-4 text-black font-semibold pt-20 pl-6">
                 <a href="./admin_customer_order.html" class="block hover:text-white">
                     Orders
                 </a>
-
-                <!-- <a href="./admin_customer_detail.html" class="block hover:text-white">
-                    Customers
-                </a> -->
-
             </nav>
-
         </div>
 
-
-        <!-- MAIN DASHBOARD -->
+        <!-- Main -->
         <div class="flex-1 p-6 md:p-10">
 
-
-            <!-- HEADER -->
-            <div class="flex justify-center  mb-20">
-
-                <h1 class="text-3xl font-bold text-black underline">
+            <!-- Header -->
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-bold text-black">
                     Dashboard Overview
                 </h1>
-
-
-
             </div>
 
+            <!-- Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
 
-            <!-- STAT CARDS -->
-            <div class="  justify-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 ">
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p>Total Users</p>
+                    <p id="totalusers" class="text-3xl font-bold mt-2">0</p>
+                </div>
 
-
-                <div class="bg-white  rounded-xl  w-xl text-center p-6">
-
-                    <p class="text-gray-700">Products</p>
-
-                    <p id="totalproducts" class="text-3xl font-bold mt-2">
-                        0
-                    </p>
-
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p>Total Admins</p>
+                    <p id="totaladmins" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
 
-                <div class="bg-white  rounded-xl text-center w-xl p-6">
-
-                    <p class="text-gray-700">Orders</p>
-
-                    <p id="totalorders" class="text-3xl font-bold mt-2">
-                        0
-                    </p>
-
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p>Total Customers</p>
+                    <p id="totalcustomers" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
-
-                <div class="bg-white rounded-xl text-center w-xl p-6">
-
-                    <p class="text-gray-700">Customers</p>
-
-                    <p id="totalcustomers" class="text-3xl font-bold mt-2">
-                        0
-                    </p>
-
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p> Total Products</p>
+                    <p id="totalproducts" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
-
-                <div class="bg-white rounded-xl text-center w-xl p-6">
-
-                    <p class="text-gray-700">Total Revenue</p>
-
-                    <p id="totalrevenue" class="text-3xl font-bold mt-2">
-                        ₹0
-                    </p>
-
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p> Total Orders</p>
+                    <p id="totalorders" class="text-3xl font-bold mt-2">0</p>
                 </div>
 
-
-                <div class="bg-white rounded-xl text-center w-xl p-6">
-
-                    <p class="text-gray-700">Total Users</p>
-
-                    <p id="totalusers" class="text-3xl font-bold mt-2">
-                        0
-                    </p>
-
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p>Total Revenue</p>
+                    <p id="totalrevenue" class="text-3xl font-bold mt-2">₹0</p>
                 </div>
 
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p class="text-green-600">Paid Revenue</p>
+                    <p id="paidrevenue" class="text-3xl font-bold mt-2">₹0</p>
+                </div>
 
-                <div class="bg-white rounded-xl text-center w-xl p-6">
-
-                    <p class="text-gray-700">Total Admins</p>
-
-                    <p id="totaladmins" class="text-3xl font-bold mt-2">
-                        0
-                    </p>
-
+                <div class="bg-white shadow-md rounded-xl text-center p-6">
+                    <p class="text-red-600">Pending Revenue</p>
+                    <p id="pendingrevenue" class="text-3xl font-bold mt-2">₹0</p>
                 </div>
 
             </div>
-
-
-
-            <!-- RECENT ORDERS -->
-            <!-- <div id="aorder" class="mt-12 bg-white/30 backdrop-blur-lg rounded-xl shadow-lg p-6 pt-14">
-
-                <h2 class="text-xl font-bold mb-6">
-                    Recent Orders
-                </h2>
-
-
-                <div class="overflow-x-auto">
-
-                    <table class="min-w-full text-left">
-
-                        <thead class="border-b">
-
-                            <tr>
-
-                                <th class="p-3">Customer</th>
-
-                                <th class="p-3">Items</th>
-
-                                <th class="p-3">Total</th>
-
-                                <th class="p-3">Payment</th>
-
-                                <th class="p-3">Date</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody id="recentOrders"></tbody>
-
-                    </table>
-
-                </div>
-
-            </div> -->
-
 
         </div>
-
     </div>
 
-
+    <!-- Scripts -->
     <script type="module" src="../../dist/scripts/admin_dashboard.js"></script>
-
     <script type="module" src="../../dist/components/admin_navbar_loader.js"></script>
 
 </body>
