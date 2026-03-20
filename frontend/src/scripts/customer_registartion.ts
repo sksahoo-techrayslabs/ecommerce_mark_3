@@ -8,7 +8,7 @@ interface User {
     role: string;
 }
 
-import { hashPassword } from "../../src/utils/password_hashing.js";
+import { hashPassword } from "../../dist/utils/password_hashing.js";
 
 // declaring and getting form
 const form = document.getElementById("customersignupform") as HTMLFormElement;

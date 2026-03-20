@@ -164,18 +164,25 @@ System can be upgraded with:<br>
 
 ## how to use the project
 -here we will use html, js , tailwind css
--clone the repo
-- install tailwind css in vs code
-- Start Tailwind CSS (Watch Mode)
--npm run dev
+-clone the repo <br>
+-Open the Project <br>
+- install tailwind css in vs code<br>
 
--Start TypeScript Compiler
+
+step-1 <br>
+-Start TypeScript Compiler <br>
+- first open terminal in frontend <br>
+- use this command in <br> 
 -npm run dev:ts
 
--Open the Project
--Open the Project
+step-2 <br>
+-- Start Tailwind CSS (Watch Mode) <br>
+- open terminal in frontend <br>
+-use this command -<br>
+-npm run dev  or  npx @tailwindcss/cli -i ./src/styles/input.css -o ./dist/styles/output.css --watch <br>
 
-- Build for Production
+
+- Build for Production<br>
 -npm run build
 
 

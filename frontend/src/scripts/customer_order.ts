@@ -1,4 +1,4 @@
-import { checkRole } from "../../src/authorization/authorization.js";
+import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
 declare const Swal: any;

@@ -8,7 +8,7 @@ interface User {
 }
 
 
-import { hashPassword } from "../../src/utils/password_hashing.js";
+import { hashPassword } from "../../dist/utils/password_hashing.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
