@@ -104,8 +104,9 @@ form.addEventListener("submit", async function (e: Event): Promise<void> {
     const hashedPassword = await hashPassword(password);
 
     // new user gets created with the required credentials
+    
     const newUser: User = {
-        id: "user_" + Date.now(),
+        id: "user_" + Date.now(), // here user is getting an user id
         name,
         email,
         password: hashedPassword,
