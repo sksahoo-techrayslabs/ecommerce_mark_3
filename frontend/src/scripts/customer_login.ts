@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const emailPattern = /^(?!.*\s)[A-Za-z][A-Za-z0-9]{2,}@[A-Za-z]+\.[A-Za-z]{2,}$/;
 
     if (!emailPattern.test(email)) {
       Swal.fire({
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 8) {
       Swal.fire({
         icon: "error",
         title: "Password must be at least 6 characters!!",
@@ -78,14 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       return;
     }
-    if (customer) {
-      Swal.fire({
-        icon: "success",
-        title: "valid customer",
-
-      })
-    }
-
     localStorage.setItem("currentUser", JSON.stringify(customer));
 
     Swal.fire({
