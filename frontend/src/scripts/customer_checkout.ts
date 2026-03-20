@@ -2,6 +2,7 @@ import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
 declare const Swal: any;
+
 interface CartItem {
     pid: string;
     name: string;
@@ -10,24 +11,8 @@ interface CartItem {
 }
 
 
-
-const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
-
-if (!user || !user.id) {
-    Swal.fire({
-        icon: "error",
-        title: "Please login first",
-
-    }).then(() => {
-
-        window.location.href = "customer_login.html";
-
-    })
-}
-
+const user = JSON.parse(localStorage.getItem("currentUser") || "null");
 const cartKey = "cart_" + user.id;
-
-
 const checkoutItems = document.getElementById("checkoutItems") as HTMLElement | null;
 const totalElement = document.getElementById("grandTotal") as HTMLElement | null;
 const form = document.getElementById("checkoutForm") as HTMLFormElement | null;
@@ -36,15 +21,11 @@ const form = document.getElementById("checkoutForm") as HTMLFormElement | null;
 let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
 
 
-
 function calculateTotal(): number {
-
     let total = 0;
-
     cart.forEach(item => {
         total += item.price * item.quantity;
     });
-
     return total;
 }
 
@@ -54,30 +35,27 @@ function showCheckout(): void {
 
     if (!checkoutItems || !totalElement) return;
 
-    checkoutItems.innerHTML = "";
-
     if (cart.length === 0) {
-
-        checkoutItems.innerHTML = "<p>Cart is empty</p>";
+        checkoutItems.innerHTML = "<p class='text-center text-gray-500'>Cart is empty</p>";
         totalElement.textContent = "0";
-
         return;
     }
 
+    let html = "";
+
     cart.forEach(item => {
-
-        const itemTotal = item.price * item.quantity;
-
-        checkoutItems.innerHTML += `
+        html += `
         <div class="flex justify-between mb-2">
             <span>${item.name} × ${item.quantity}</span>
-            <span>₹${itemTotal}</span>
+            <span>₹${item.price * item.quantity}</span>
         </div>
         `;
     });
 
+    checkoutItems.innerHTML = html;
     totalElement.textContent = calculateTotal().toString();
 }
+
 
 if (form) {
 
@@ -86,12 +64,10 @@ if (form) {
         e.preventDefault();
 
         if (cart.length === 0) {
-        
             Swal.fire({
                 icon: "error",
-                title: "Cart is empty!",
-
-            })
+                title: "Cart is empty!"
+            });
             return;
         }
 
@@ -106,22 +82,23 @@ if (form) {
         const phone = phoneInput.value.trim();
 
         if (!name || !address || !phone) {
-             Swal.fire({
-                icon: "error",
-                title: "All fields are required",
-            })
-            return;
-        }
-
-        if (phone.length !== 10) {
             Swal.fire({
                 icon: "error",
-                title: "Enter valid phone number",
-            })
-
+                title: "All fields are required"
+            });
             return;
         }
 
+        // phone number validation
+        if (!/^[6-9]\d{9}$/.test(phone)) {
+            Swal.fire({
+                icon: "error",
+                title: "Enter valid phone number"
+            });
+            return;
+        }
+
+        // saving data
         const checkoutInfo = {
             name,
             address,
@@ -130,12 +107,12 @@ if (form) {
 
         localStorage.setItem("checkoutInfo", JSON.stringify(checkoutInfo));
 
+        // redirect
         window.location.href = "customer_payment.html";
-
     });
 
 }
 
 
-
+// init
 showCheckout();

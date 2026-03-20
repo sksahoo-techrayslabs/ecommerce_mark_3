@@ -55,7 +55,7 @@ function showCart(): void {
 
         <td class="p-2">
           <img src="${item.image}"
-               class="w-16 h-16 object-contain mx-auto">
+               class="w-18 h-18 object-contain mx-auto ml-3">
         </td>
 
         <td class="p-2">₹${item.price}</td>
