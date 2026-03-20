@@ -1,122 +1,87 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
-declare const Swal: any;
 
+declare const Swal: any;
 interface OrderItem {
     pid: string;
     name: string;
     price: number;
     quantity: number;
 }
-
 interface Order {
+    userId: string;
     date: string;
     items: OrderItem[];
     name: string;
     address: string;
     phone: string;
-    total?: number;
-    status?: string;
+    total: number;
+    status: string;
 }
-
-const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
-
-if (!user || !user.id) {
-    Swal.fire({
-        icon:"error",
-        title:"Please login first!!",
-       
-       })
-    window.location.href = "customer_login.html";
-}
-
+const user = JSON.parse(localStorage.getItem("currentUser") || "null");
 const orderKey = "orders_" + user.id;
-
 const container = document.getElementById("ordersContainer") as HTMLElement | null;
 
-const orders: Order[] = JSON.parse(localStorage.getItem(orderKey) || "[]");
-
-function calculateOrderTotal(items: OrderItem[]): number {
-
-    let total = 0;
-
-    items.forEach(item => {
-        total += item.price * item.quantity;
-    });
-
-    return total;
-}
-
+let orders: Order[] = JSON.parse(localStorage.getItem(orderKey) || "[]");
 
 function renderOrderItems(items: OrderItem[]): string {
 
     let html = "";
-    let total = 0;
 
     items.forEach(item => {
-
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-
         html += `
         <div class="flex justify-between">
             <span>${item.name} × ${item.quantity}</span>
-            <span>₹${itemTotal}</span>
+            <span>₹${item.price * item.quantity}</span>
         </div>
         `;
     });
 
-    return `
-    <div class="border-t pt-3 space-y-2">
-        ${html}
-    </div>
-
-    <div class="border-t mt-3 pt-3 flex justify-between font-bold">
-        <span>Total</span>
-        <span>₹${total}</span>
-    </div>
-    `;
+    return html;
 }
+
 function showOrders(): void {
 
     if (!container) return;
 
-    container.innerHTML = "";
-
     if (orders.length === 0) {
-
         container.innerHTML = `
-        <div class="bg-white p-6 rounded shadow text-center">
+        <div class="bg-white p-6 rounded shadow text-center text-gray-500">
             No orders placed yet.
         </div>
         `;
-
         return;
     }
 
-    orders.forEach((order, index) => {
+    orders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-        const orderHTML = `
-        <div class="bg-white p-6 rounded-xl shadow">
+    let html = "";
 
-            <h2 class="text-lg font-bold mb-2">
-                Order ID: ${index + 1}
-            </h2>
+    orders.forEach(order => {
 
-            <p class="mb-2">Date: ${order.date}</p>
+        html += `
+        <div class="bg-white p-6 rounded-xl shadow space-y-2">
 
-            ${renderOrderItems(order.items)}
+            <p class="text-sm text-gray-600">Date: ${new Date(order.date).toLocaleString()}
+            </p>
 
-            <p class="mt-2 text-sm text-gray-600">
+            <div class="border-t pt-2">
+                ${renderOrderItems(order.items)}
+            </div>
+
+            <div class="flex justify-between font-bold border-t pt-2">
+                <span>Total</span>
+                <span>₹${order.total}</span>
+            </div>
+
+            <p class="text-sm text-gray-600">
                 Status: ${order.status || "Pending"}
             </p>
 
         </div>
         `;
-
-        container.innerHTML += orderHTML;
     });
+
+    container.innerHTML = html;
 }
-
-
 showOrders();
