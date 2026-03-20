@@ -1,7 +1,7 @@
 import { checkRole } from "../../dist/authorization/authorization.js";
 checkRole("customer");
 
-declare const Swal:any;
+declare const Swal: any;
 interface CartItem {
   pid: string;
   name: string;
@@ -10,68 +10,52 @@ interface CartItem {
   image: string;
 }
 
+//getting elements
 const cartTable = document.getElementById("cartTable") as HTMLElement | null;
 const grandTotalElement = document.getElementById("grandTotal") as HTMLElement | null;
 const placeOrderBtn = document.getElementById("placeOrderBtn") as HTMLButtonElement | null;
 
-
-
-const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
-
-if (!user || !user.id) {
-  Swal.fire({
-        icon:"error",
-        title:"Please login first",
-       
-       }).then(() => {
-
-         window.location.href = "customer_login.html";
-
-       })
-}
-
+//this is the  user data
+const user = JSON.parse(localStorage.getItem("currentUser") || "null");
 const cartKey = "cart_" + user.id;
 
-
-
+//this is the  cart data
 let cart: CartItem[] = JSON.parse(localStorage.getItem(cartKey) || "[]");
 
 
-
+// showing the data of cart
 function showCart(): void {
 
   if (!cartTable || !grandTotalElement) return;
 
-  cartTable.innerHTML = "";
-  let grandTotal = 0;
-
   if (cart.length === 0) {
-
     cartTable.innerHTML = `
       <tr>
-        <td colspan="6" class="p-4 text-center">
+        <td colspan="6" class="p-4 text-center text-gray-500">
           Cart is empty
         </td>
       </tr>
     `;
-
     grandTotalElement.textContent = "0";
     return;
   }
 
-  cart.forEach((item, index) => {
+  let html = "";
+  let grandTotal = 0;
+
+  cart.forEach(item => {
 
     const total = item.price * item.quantity;
     grandTotal += total;
 
-    cartTable.innerHTML += `
+    html += `
       <tr class="border-b">
 
         <td class="p-2">${item.name}</td>
 
-        <td>
-         <img src="${item.image}"
-          class="w-full h-40 object-cover rounded mb-3">
+        <td class="p-2">
+          <img src="${item.image}"
+               class="w-16 h-16 object-contain mx-auto">
         </td>
 
         <td class="p-2">₹${item.price}</td>
@@ -82,7 +66,7 @@ function showCart(): void {
             value="${item.quantity}"
             min="1"
             class="border rounded px-2 w-16"
-            onchange="updateQuantity(${index}, this.value)">
+            onchange="updateQuantity('${item.pid}', this.value)">
         </td>
 
         <td class="p-2 font-semibold">₹${total}</td>
@@ -90,85 +74,83 @@ function showCart(): void {
         <td class="p-2">
           <button
             class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-            onclick="removeItem(${index})">
+            onclick="removeItem('${item.pid}')">
             Delete
           </button>
         </td>
 
       </tr>
     `;
-
   });
 
+  cartTable.innerHTML = html;
   grandTotalElement.textContent = grandTotal.toString();
-
-  localStorage.setItem(cartKey, JSON.stringify(cart));
 }
 
 
-
-function updateQuantity(index: number, newQty: string): void {
+// quantity is getting updated here
+function updateQuantity(pid: string, newQty: string): void {
 
   const quantity = parseInt(newQty);
-  const products = JSON.parse(localStorage.getItem("products") || "[]");
-  const product = products.find((p: any) => p.pid === cart[index]!.pid);
-
-  if (product && quantity > product.stock) {
-     Swal.fire({
-        icon:"error",
-        title:"Exceeds available stock"
-       
-       })
-    return;
-  }
 
   if (isNaN(quantity) || quantity < 1) {
     Swal.fire({
-        icon:"error",
-        title:"Invalid quantity"
-       
-       })
+      icon: "error",
+      title: "Invalid quantity"
+    });
     return;
   }
 
-  cart[index]!.quantity = quantity;
+  const products = JSON.parse(localStorage.getItem("products") || "[]");
+  const product = products.find((p: any) => p.pid === pid);
 
-  showCart();
-}
+  if (product && quantity > product.stock) {
+    Swal.fire({
+      icon: "error",
+      title: "Exceeds available stock"
+    });
+    return;
+  }
 
+  const item = cart.find(i => i.pid === pid);
+  if (!item) return;
 
-function removeItem(index: number): void {
-
-  cart.splice(index, 1);
+  item.quantity = quantity;
 
   localStorage.setItem(cartKey, JSON.stringify(cart));
-
   showCart();
 }
 
 
-if (placeOrderBtn) {
+//removing item with this logic
+function removeItem(pid: string): void {
 
+  cart = cart.filter(item => item.pid !== pid);
+
+  localStorage.setItem(cartKey, JSON.stringify(cart));
+  showCart();
+}
+
+
+// finally placing order
+if (placeOrderBtn) {
   placeOrderBtn.addEventListener("click", () => {
 
     if (cart.length === 0) {
       Swal.fire({
-        icon:"error",
-        title:"Cart is empty!"
-       
-       })
- 
+        icon: "error",
+        title: "Cart is empty!"
+      });
       return;
     }
 
     window.location.href = "customer_checkout.html";
   });
-
 }
 
 
+// these are the functions that will work to update or remove
 (window as any).updateQuantity = updateQuantity;
 (window as any).removeItem = removeItem;
-
-
+// showing cart
 showCart();
