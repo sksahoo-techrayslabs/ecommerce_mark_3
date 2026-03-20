@@ -1,0 +1,970 @@
+openapi: 3.1.0
+info:
+  title: E-commerce order management system- OpenAPI 3.1
+  description: |-
+
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.12
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+
+servers:
+  - url: http://localhost:4000
+
+                     #  tags started
+tags:
+  - name: customer
+    description: Everything about your customer
+  - name: seller
+    description: Everything about your seller
+  - name: category
+    description: Everything about your category
+  - name: product
+    description: Everything about your product
+  - name: cart
+    description:  Everything about your cart
+  - name: orderitem
+    description:  Everything about your orderitem
+  - name: orders
+    description:  Everything about your orders
+  - name: payment
+    description:  Everything about your payment
+  - name: refund
+    description:  Everything about your refund
+  - name: review
+    description:  Everything about your review
+  - name: address
+    description:  Everything about your review   
+
+            # path  started for all table
+paths:
+
+  # customer
+
+  /customer:
+    post:
+      tags: [customer]
+      description: Create new customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/customer'
+      responses:
+        '201':
+          description: customer data stored
+        "409":
+          description: email or phone number already exists  
+    get:
+      tags: [customer]
+      description: Get all customers
+      responses:
+        '200':
+          description: List of customers
+
+  /customer/{customerid}:
+    get:
+      tags: [customer]
+      description: Get customer by ID
+      parameters:
+        - name: customerid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Customer details
+
+    delete:
+      tags: [customer]
+      description: Delete customer
+      parameters:
+        - name: customerid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Customer deleted successfully
+
+# Seller
+
+  /seller:
+    post:
+      tags: [seller]
+      summary: Create seller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/seller'
+      responses:
+        '201':
+          description: Seller created 
+    get:
+      tags: [seller]
+      summary: Get all sellers
+      responses:
+        '200':
+          description: Seller list 
+
+  /seller/{sellerid}:
+    get:
+      tags: [seller]
+      summary: Get seller by ID
+      parameters:
+        - name: sellerid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Seller found 
+    delete:
+      tags: [seller]
+      summary: Delete seller
+      parameters:
+        - name: sellerid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+            description: Seller deleted 
+# category
+
+  /category:
+    post:
+      tags: [category]
+      summary: Create category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/category'
+      responses:
+        '201':
+          description: Category created
+    get:
+      tags: [category]
+      summary: Get all categories
+      responses:
+        '201':
+          description: Category list
+
+  /category/{categoryid}:
+    get:
+      tags: [category]
+      summary: Get category by ID
+      parameters:
+        - name: categoryid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Category found
+    delete:
+      tags: [category]
+      summary: Delete category
+      parameters:
+        - name: categoryid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Category deleted
+
+# product
+
+  /product:
+    post:
+      tags: [product]
+      summary: Create product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+      responses:
+        '201': { description: Product created }
+    get:
+      tags: [product]
+      summary: Get all products
+      responses:
+        '201':
+          description: Product list
+
+  /product/{productid}:
+    get:
+      tags: [product]
+      summary: Get product by ID
+      parameters:
+        - name: productid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Product found
+    delete:
+      tags: [product]
+      summary: Delete product
+      parameters:
+        - name: productid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Product deleted
+
+
+# cart
+
+  /cart:
+    post:
+      tags: [cart]
+      summary: Add product to cart
+      description: Creates a new cart entry for a customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cart'
+      responses:
+        '201':
+          description: Item added to cart
+        '400':
+          description: Invalid cart data
+
+    get:
+      tags: [cart]
+      summary: Retrieve all cart entries
+      responses:
+        '201':
+          description: List of cart items
+
+  /cart/{cartid}:
+    get:
+      tags: [cart]
+      summary: Get cart item by ID
+      parameters:
+        - name: cartid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cart item found
+        '404':
+          description: Cart item not found
+
+    put:
+      tags: [cart]
+      summary: Update cart item quantity
+      description: Modify quantity or total price of cart item.
+      parameters:
+        - name: cartid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cart'
+      responses:
+        '200':
+          description: Cart item updated successfully
+
+    delete:
+      tags: [cart]
+      summary: Remove item from cart
+      parameters:
+        - name: cartid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cart item removed successfully
+
+# orderitem 
+
+  /orderitem:
+    post:
+      tags: [orderitem]
+      summary: Create a new order item
+      description: Inserts a new order item record in the orderitem table.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orderitem'
+      responses:
+        '201':
+          description: Order item created successfully
+        '400':
+          description: Invalid order item data
+
+    get:
+      tags: [orderitem]
+      summary: Retrieve all order items
+      responses:
+        '200':
+          description: List of order items
+
+  /orderitem/{orderitemid}:
+    get:
+      tags: [orderitem]
+      summary: Get order item by ID
+      parameters:
+        - name: orderitemid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order item found
+        '404':
+          description: Order item not found
+
+    put:
+      tags: [orderitem]
+      summary: Update order item details
+      parameters:
+        - name: orderitemid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orderitem'
+      responses:
+        '200':
+          description: Order item updated successfully
+
+    delete:
+      tags: [orderitem]
+      summary: Delete order item
+      parameters:
+        - name: orderitemid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order item deleted successfully
+
+
+#  orders 
+
+  /orders:
+    post:
+      tags: [orders]
+      summary: Create a new order
+      description: Inserts a new order record in the orders table.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders'
+      responses:
+        '201':
+          description: Order created successfully
+        '400':
+          description: Invalid order data
+
+    get:
+      tags: [orders]
+      summary: Retrieve all orders
+      responses:
+        '200':
+          description: List of all orders
+
+  /orders/{orderid}:
+    get:
+      tags: [orders]
+      summary: Get order details by ID
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order found
+        '404':
+          description: Order not found
+
+    put:
+      tags: [orders]
+      summary: Update order information
+      description: Used to modify order status or shipping details.
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders'
+      responses:
+        '200':
+          description: Order updated successfully
+
+    delete:
+      tags: [orders]
+      summary: Delete an order
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order deleted successfully
+
+# payment
+
+  /payment:
+    post:
+      tags: [payment]
+      summary: Record a new payment
+      description: Creates a new payment entry linked to an order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payment'
+      responses:
+        '201':
+          description: Payment recorded successfully
+        '400':
+          description: Invalid payment data
+
+    get:
+      tags: [payment]
+      summary: Retrieve all payment records
+      responses:
+        '200':
+          description: List of payments
+
+  /payment/{paymentid}:
+    get:
+      tags: [payment]
+      summary: Get payment details by ID
+      parameters:
+        - name: paymentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Payment found
+        '404':
+          description: Payment not found
+
+    put:
+      tags: [payment]
+      summary: Update payment information
+      description: Modify payment details if required.
+      parameters:
+        - name: paymentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payment'
+      responses:
+        '200':
+          description: Payment updated successfully
+
+    delete:
+      tags: [payment]
+      summary: Delete payment record
+      parameters:
+        - name: paymentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Payment deleted successfully
+
+
+#  address
+
+  /address:
+    post:
+      tags: [address]
+      summary: Add a new address for customer
+      description: Inserts a new address record linked to a customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/address'
+      responses:
+        '201':
+          description: Address added successfully
+        '400':
+          description: Invalid address data
+
+    get:
+      tags: [address]
+      summary: Retrieve all addresses
+      responses:
+        '200':
+          description: List of addresses
+
+  /address/{addressid}:
+    get:
+      tags: [address]
+      summary: Get address by ID
+      parameters:
+        - name: addressid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Address found
+        '404':
+          description: Address not found
+
+    put:
+      tags: [address]
+      summary: Update existing address
+      parameters:
+        - name: addressid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/address'
+      responses:
+        '200':
+          description: Address updated successfully
+
+    delete:
+      tags: [address]
+      summary: Delete an address
+      parameters:
+        - name: addressid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Address deleted successfully
+
+#  refund 
+
+  /refund:
+    post:
+      tags: [refund]
+      summary: Create a new refund request
+      description: Customer initiates a refund request for an order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refund'
+      responses:
+        '201':
+          description: Refund request created successfully
+        '400':
+          description: Invalid refund data
+
+    get:
+      tags: [refund]
+      summary: Retrieve all refund records
+      responses:
+        '200':
+          description: List of refund requests
+
+  /refund/{refundid}:
+    get:
+      tags: [refund]
+      summary: Get refund details by ID
+      parameters:
+        - name: refundid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Refund found
+        '404':
+          description: Refund not found
+
+    put:
+      tags: [refund]
+      summary: Update refund status
+      description: Used by admin to approve or reject refund request.
+      parameters:
+        - name: refundid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refund'
+      responses:
+        '200':
+          description: Refund updated successfully
+
+    delete:
+      tags: [refund]
+      summary: Delete refund request
+      parameters:
+        - name: refundid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Refund deleted successfully
+
+#  review
+
+  /review:
+    post:
+      tags: [review]
+      summary: Add a new product review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/review'
+      responses:
+        '201':
+          description: Review created successfully
+
+    get:
+      tags: [review]
+      summary: Retrieve all reviews
+      responses:
+        '200':
+          description: List of reviews
+
+  /review/{reviewid}:
+    get:
+      tags: [review]
+      summary: Get review by ID
+      parameters:
+        - name: reviewid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Review found
+        '404':
+          description: Review not found
+
+    put:
+      tags: [review]
+      summary: Update existing review
+      parameters:
+        - name: reviewid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/review'
+      responses:
+        '200':
+          description: Review updated successfully
+
+    delete:
+      tags: [review]
+      summary: Delete a review
+      parameters:
+        - name: reviewid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Review deleted successfully
+
+
+
+# components
+
+components:
+  schemas:
+#  Customer
+
+    customer:
+      type: object
+      properties:
+        customerid:
+          type: integer
+        firstname:
+          type: string
+        middlename:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        dob:
+          type: string
+          format: date
+        phone:
+          type: string
+        age:
+          type: integer
+# seller
+ 
+    seller:
+      type: object
+      properties:
+        sellerid:
+          type: integer
+        name:
+          type: string
+        phone:
+          type: string
+#  category
+
+    category:
+      type: object
+      properties:
+        categoryid:
+          type: integer
+        categoryname:
+          type: string
+        details:
+          type: string
+# product 
+
+    product:
+      type: object
+      properties:
+        productid:
+          type: integer
+        sellerid:
+          type: integer
+        categoryid:
+          type: integer
+        productname:
+          type: string
+        brand:
+          type: string
+        price:
+          type: number
+          format: float
+        stock:
+          type: integer
+#  cart
+
+    cart:
+      type: object
+      properties:
+        cartid:
+          type: integer
+        customerid:
+          type: integer
+        productid:
+          type: integer
+        quantity:
+          type: integer
+        totalitem:
+          type: integer
+        totalprice:
+          type: number
+          format: float
+# orderitem
+
+    orderitem:
+      type: object
+      properties:
+        orderitemid:
+          type: integer
+        productid:
+          type: integer
+        price:
+          type: number
+          format: float
+        quantity:
+          type: integer
+#  orders
+
+    orders:
+      type: object
+      properties:
+        orderid:
+          type: integer
+        cartid:
+          type: integer
+        customerid:
+          type: integer
+        orderitemid:
+          type: integer
+        ordernumber:
+          type: string
+        orderdate:
+          type: string
+          format: date-time
+        shippingdate:
+          type: string
+          format: date-time
+        orderprice:
+          type: number
+          format: float
+        orderstatus:
+          type: string
+          enum: [pending, completed, rejected]
+#  payment 
+
+    payment:
+      type: object
+      properties:
+        paymentid:
+          type: integer
+        orderid:
+          type: integer
+        customerid:
+          type: integer
+        paymentmode:
+          type: string
+        dateofpayment:
+          type: string
+          format: date-time
+#  address
+
+    address:
+      type: object
+      properties:
+        addressid:
+          type: integer
+        customerid:
+          type: integer
+        streetname:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        pincode:
+          type: string
+#  refund
+
+    refund:
+      type: object
+      properties:
+        refundid:
+          type: integer
+        orderid:
+          type: integer
+        productid:
+          type: integer
+        customerid:
+          type: integer
+        quantity:
+          type: integer
+        refundamount:
+          type: number
+          format: float
+        refundreason:
+          type: string
+        refundstatus:
+          type: string
+          enum: [pending, completed, rejected]
+        requestdate:
+          type: string
+          format: date-time
+        processeddate:
+          type: string
+          format: date-time
+#  review
+
+    review:
+      type: object
+      properties:
+        reviewid:
+          type: integer
+        customerid:
+          type: integer
+        productid:
+          type: integer
+        reviewdetails:
+          type: string
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5

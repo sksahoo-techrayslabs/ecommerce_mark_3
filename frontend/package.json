@@ -9,9 +9,8 @@
 "scripts": 
 {
 "dev": "npx @tailwindcss/cli -i ./frontend/src/styles/input.css -o ./frontend/dist/styles/output.css --watch",
-
-"build:css": "npx tailwindcss/cli -i ./frontend/src/styles/input.css -o ./frontend/dist/output.css --minify",
-"build:ts":"npx tsc",
+"build:css": "npx @tailwindcss/cli -i ./frontend/src/styles/input.css -o ./frontend/dist/styles/output.css --minify",
+"build:ts":"npx tsc -w",
 "build":"npm run build:css && npm run build:ts"
 },
 

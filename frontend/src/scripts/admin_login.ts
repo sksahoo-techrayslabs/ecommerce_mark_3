@@ -7,7 +7,7 @@ interface Admin {
     role: string;
 }
 
-import { hashPassword } from "../../dist/utils/password_hashing.js";
+import { hashPassword } from "../../src/utils/password_hashing.js";
 
 const form = document.querySelector('form') as HTMLFormElement;
 

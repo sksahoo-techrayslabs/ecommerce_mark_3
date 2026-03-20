@@ -1,4 +1,4 @@
-import { checkRole } from "../../dist/authorization/authorization.js";
+import { checkRole } from "../../src/authorization/authorization.js";
 checkRole("admin");
 interface Product {
     pid: string;
