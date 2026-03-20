@@ -1,4 +1,4 @@
-// User interface
+
 declare const Swal: any;
 interface User {
     id: string;
@@ -10,126 +10,119 @@ interface User {
 
 import { hashPassword } from "../../dist/utils/password_hashing.js";
 
-// Get form
+// declaring and getting form
 const form = document.getElementById("customersignupform") as HTMLFormElement;
+
+if (!form) throw new Error("Form not found");
 
 form.addEventListener("submit", async function (e: Event): Promise<void> {
 
     e.preventDefault();
 
-    // Get input elements
+    //these are the  inputs that i am taking
     const nameInput = document.getElementById("name") as HTMLInputElement;
     const emailInput = document.getElementById("email") as HTMLInputElement;
     const passwordInput = document.getElementById("password") as HTMLInputElement;
     const confirmPasswordInput = document.getElementById("confirmPassword") as HTMLInputElement;
 
-    // Get values
+    //these are the  values that i am taking and trimming it
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
     const confirmPassword = confirmPasswordInput.value.trim();
 
-    //  Required field validation
+    // validating forms 
     if (!name || !email || !password || !confirmPassword) {
         Swal.fire({
             icon: "error",
             title: "All fields are required",
-            text: "Enter all data"
-        })
+        });
         return;
     }
 
-    //  Name validation
-    if (name.length < 3) {
+    // regex for name
+    const namePattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+
+    if (!namePattern.test(name)) {
         Swal.fire({
             icon: "error",
-            title: "Name must be at least 3 characters long.",
-
-        })
+            title: "Invalid name",
+            text: "Only letters allowed, no leading space"
+        });
         return;
     }
 
-    // Email validation
-    const emailPattern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //regex for email
+    const emailPattern = /^(?!.*\s)[A-Za-z][A-Za-z0-9]{2,}@[A-Za-z]+\.[A-Za-z]{2,}$/;
 
     if (!emailPattern.test(email)) {
         Swal.fire({
             icon: "error",
-            title: "Please enter a valid email address.",
-
-        })
+            title: "Invalid email",
+            text: "Must start with letter, min 3 chars before @, no spaces"
+        });
         return;
     }
 
-    //  Password validation
-    const passwordPattern: RegExp =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$/;
+    // regex for password
+    const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (!passwordPattern.test(password)) {
         Swal.fire({
             icon: "error",
-            title: "Please enter correct password.",
-            text: "Password must contain:\n" +
-                "- At least 1 uppercase letter\n" +
-                "- At least 1 lowercase letter\n" +
-                "- At least 1 special character\n" +
-                "- Minimum 6 characters"
-
-        })
+            title: "Weak password",
+            text: "Min 8 chars, include upper, lower, number, special char"
+        });
         return;
     }
 
-    // Password match check
+    //confirming the old password with new one
     if (password !== confirmPassword) {
         Swal.fire({
             icon: "error",
-            title: "Passwords do not match!",
-
-        })
+            title: "Passwords do not match"
+        });
         return;
     }
 
-    // Get users from localStorage
+    //getting the users
     let users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
 
     // Duplicate email check
-    const exists: boolean = users.some((user: User) => user.email === email);
+    const exists = users.some((user: User) => user.email === email);
 
     if (exists) {
         Swal.fire({
             icon: "warning",
-            title: "Email already registered!",
-
-        })
+            title: "Email already registered"
+        });
         return;
     }
 
-    //  password hashing
+    // encrypting/ hashing my password
     const hashedPassword = await hashPassword(password);
 
-    // Creating new user
+    // new user gets created with the required credentials
     const newUser: User = {
         id: "user_" + Date.now(),
-        name: name,
-        email: email,
+        name,
+        email,
         password: hashedPassword,
         role: "customer"
     };
 
-
     users.push(newUser);
 
-    // Save to localStorage
+    // saving in the localStorage
     localStorage.setItem("users", JSON.stringify(users));
 
+    //success message
     Swal.fire({
-            icon: "success",
-            title: "Customer account created successfully!",
+        icon: "success",
+        title: "Account created successfully!",
+    }).then(() => {
+        window.location.href = "customer_login.html";
+    });
 
-        }).then(()=> {
-         window.location.href = "customer_login.html";
-       });
-
-    // Redirect to login page
-    window.location.href = "customer_login.html";
 });
